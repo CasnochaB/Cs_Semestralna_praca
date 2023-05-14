@@ -92,7 +92,7 @@ namespace Database
 
         public override bool AddInhabitants(Person person, int? housingID)
         {
-            //TODO
+            //TODO prerobiť
             if (housingID != null)
             {
                 var housing = GetHousingUnit(housingID);

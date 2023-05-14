@@ -40,7 +40,7 @@ namespace Database
         public void Add(Person person)
         {
             if (person != null) {
-                inhabitants.Add(person.identificationNumber,person);
+                inhabitants.Add(person.personalData.identificationNumber,person);
             }
         }
         public void Add(string firstName,string lastName, string identificationNumber)
@@ -59,7 +59,7 @@ namespace Database
 
         public bool Remove(Person person)
         {
-            return inhabitants.Remove(person.identificationNumber);
+            return inhabitants.Remove(person.personalData.identificationNumber);
         }
 
         public bool Remove(string identificationNumber)
@@ -75,9 +75,9 @@ namespace Database
         public bool Remove(IEnumerable<Person> peopleToRemove) {
             if (inhabitants.Values.All(n=> peopleToRemove.Contains(n)))
             {
-                foreach (var item in peopleToRemove)
+                foreach (var person in peopleToRemove)
                 {
-                    inhabitants.Remove(item.identificationNumber);
+                    inhabitants.Remove(person.personalData.identificationNumber);
                 }
                 return true;
             }
