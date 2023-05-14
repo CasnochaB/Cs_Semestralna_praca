@@ -65,12 +65,12 @@ namespace Database
             {
                 return false;
             }
-            housingUnit.superiorHousing = this;
-            while (housingUnits.ContainsKey(housingUnit.unitIdentifier))
+            housingUnit.SetSuperiorHousing(this);
+            while (housingUnits.ContainsKey(housingUnit.unitOrder))
             {
-                housingUnit.unitIdentifier = currentHousingUnitID++;
+                housingUnit.unitOrder = currentHousingUnitID++;
             }
-            housingUnits.Add(housingUnit.unitIdentifier,housingUnit);
+            housingUnits.Add(housingUnit.unitOrder,housingUnit);
             return true;
         }
 

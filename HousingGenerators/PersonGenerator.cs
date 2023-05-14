@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,7 +21,8 @@ namespace HousingGenerators
 
         private static Random random = new Random();
         private static int uniqueID = 0;
-
+        private static int lowerCountSpan = 2;
+        private static int upperCountSpan = 4;
         public static string GetUniqueID()
         {
             DateTime date = GetRandomBirthDate();
@@ -90,12 +92,29 @@ namespace HousingGenerators
             return random.Next(2) == 0;
         }
 
-        public static IEnumerable<Person> GeneratePeople(int count = 2) {
+        public static IEnumerable<Person> GeneratePeople(int count) {
             for (int i = 0; i < count; i++)
             {
                 yield return GeneratePerson();
             }
         }
 
+        public static IEnumerable<Person> GeneratePeople()
+        {
+            int count = random.Next(lowerCountSpan,upperCountSpan+1);
+            for (int i = 0; i < count; i++)
+            {
+                yield return GeneratePerson();
+            }
+        }
+
+        public static void SetCountSpan(int lower, int upper)
+        {
+            if (lower <= upper)
+            {
+                lowerCountSpan = lower;
+                upperCountSpan = upper;
+            }
+        }
     }
 }

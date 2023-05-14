@@ -9,12 +9,12 @@ namespace Database
 {
     public class HousingDatabase : IEnumerable<Housing>
     {
-        private static int House_Number = 0;
+        private static int houseNumber = 0;
         private List<Person> exportHousings = new List<Person>();
         
         public static int GetHouseNumber()
         {
-            return House_Number++;
+            return houseNumber++;
         }
         private Dictionary<int,Housing> housings;
 
@@ -22,9 +22,30 @@ namespace Database
             housings = new Dictionary<int, Housing>();
         }
 
-        public void Add(Housing housing)
+        public void PrintContent()
         {
+            foreach (var housing in housings)
+            {
+                Console.WriteLine(housing.Value.houseNumber);
+                foreach (var housingUnit in housing.Value)
+                {
+                    Console.WriteLine(" " + housingUnit.unitIdentifier);
+                    foreach (var person in housingUnit)
+                    {
+                        Console.WriteLine("    " + person.fullName);
+                    }
+                }
+            }
+        }
+
+        public bool Add(Housing housing)
+        {
+            if (Contains(housing.houseNumber)) 
+            {
+                return false; 
+            }
             housings.Add(housing.houseNumber,housing);
+            return true;
         }
         public bool Remove(Housing housing)
         {

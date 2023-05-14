@@ -6,15 +6,11 @@ namespace HousingGenerators
     public static class HousingGenerator
     {
 
-        public static int uniqueHouseNumber { 
-            get { return uniqueHouseNumber; }
-            set { uniqueHouseNumber = value; }
-        } 
-
+        public static int uniqueHouseNumber = 1;
 
         public static House GenerateHouse(bool generateInhabitants = false)
         {
-            House house = new House(uniqueHouseNumber);
+            House house = new House(GetUniqueHousingId());
             if (generateInhabitants)
             {
                 foreach (var person in PersonGenerator.GeneratePeople())
@@ -27,7 +23,7 @@ namespace HousingGenerators
 
         public static Flat GenerateFlat(int numberOfHousingUnits = 6, bool generateHousingUnits = false, bool generateInhabitants = false)
         {
-            Flat flat = new Flat(uniqueHouseNumber,numberOfHousingUnits);
+            Flat flat = new Flat(GetUniqueHousingId(),numberOfHousingUnits);
             if (generateHousingUnits)
             {
                 foreach (var item in HousingUnitGenerator.GenerateHousingUnits(numberOfHousingUnits, generateInhabitants))
@@ -43,6 +39,7 @@ namespace HousingGenerators
             for (int i = 0; i < count; i++)
             {
                 yield return GenerateHouse(generateInhabitants);
+                uniqueHouseNumber++;
             }
         }
 
@@ -51,10 +48,14 @@ namespace HousingGenerators
             for (int i = 0; i < count; i++)
             {
                 yield return GenerateFlat(numberOfHousings, generateHousing, generateInhabitants);
+                uniqueHouseNumber++;
             }
         }
-
-        private static int GetUniqueHouseId(HousingDatabase housingDatabase)
+        private static int GetUniqueHousingId()
+        {
+            return uniqueHouseNumber++;
+        }
+        public static int GetUniqueHousingId(HousingDatabase housingDatabase)
         {
             while (housingDatabase.Contains(uniqueHouseNumber))
             {

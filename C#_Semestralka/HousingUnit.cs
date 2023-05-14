@@ -9,31 +9,32 @@ namespace Database
     {
         private Dictionary<string,Person> inhabitants;
         public int numberOfInhabitants { get {  return inhabitants.Count; } }
-        public int unitIdentifier { get; set; }
-        string nameOfUnit { get {
-                return superiorHousing == null ? "Unknown" : superiorHousing.houseNumber.ToString()  + "/" + unitIdentifier.ToString();    
+        public int unitOrder { get; set; }
+        public string unitIdentifier { get {
+                return superiorHousing == null ? "Unknown" : superiorHousing.houseNumber.ToString()  + "/" + unitOrder.ToString();    
             }
         }
-        public Housing? superiorHousing 
-        { 
-            get 
-            { 
-                return superiorHousing; 
-            }
-            set 
+
+        private Housing? superiorHousing = null;
+
+        public Housing? GetSuperiorHousing()
+        {
+            return superiorHousing;
+        }
+
+        public void SetSuperiorHousing(Housing superiorHousing)
+        {
+            this.superiorHousing = superiorHousing;
+            foreach (var person in inhabitants)
             {
-                superiorHousing = value;
-                foreach (var valuePair in inhabitants)
-                {
-                    valuePair.Value.address = nameOfUnit;
-                }
-            }
+                person.Value.address = unitIdentifier;
+            }   
         }
 
         public HousingUnit(int unitIdentifier, Housing? superiorResidence = null)
         {
             inhabitants = new Dictionary<string,Person>();
-            this.unitIdentifier = unitIdentifier;
+            this.unitOrder = unitIdentifier;
             this.superiorHousing = superiorResidence;
         }
 
@@ -48,7 +49,7 @@ namespace Database
         }
         public void Add(string firstName,string lastName, string identificationNumber)
         {
-            Add(new Person(firstName, lastName, identificationNumber,nameOfUnit));
+            Add(new Person(firstName, lastName, identificationNumber,unitIdentifier));
         }
 
         public void Add(IEnumerable<Person> people)
@@ -115,12 +116,12 @@ namespace Database
 
         public IEnumerator<Person> GetEnumerator()
         {
-            return ((IEnumerable<Person>)inhabitants).GetEnumerator();
+            return inhabitants.Values.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)inhabitants).GetEnumerator();
+            return GetEnumerator();
         }
 
         public void Clear()
