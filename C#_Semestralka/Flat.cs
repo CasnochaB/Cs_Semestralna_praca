@@ -66,10 +66,9 @@ namespace Database
                 return false;
             }
             housingUnit.superiorHousing = this;
-            housingUnit.unitIdentifier = currentHousingUnitID++;
-            if (housingUnits.ContainsKey(housingUnit.unitIdentifier))
+            while (housingUnits.ContainsKey(housingUnit.unitIdentifier))
             {
-                return false;
+                housingUnit.unitIdentifier = currentHousingUnitID++;
             }
             housingUnits.Add(housingUnit.unitIdentifier,housingUnit);
             return true;
@@ -77,32 +76,7 @@ namespace Database
 
         public bool Add()
         {
-            if (housingUnits.Count >= maxHousingUnits) {
-                return false;
-            }
-            int key = currentHousingUnitID;
-            while (housingUnits.ContainsKey(key))
-            {
-                key++;
-            }
-            currentHousingUnitID = key;
-            Add(new HousingUnit(currentHousingUnitID++, this));
-            return true;
-        }
-
-        public override bool AddInhabitants(Person person, int? housingID)
-        {
-            //TODO prerobiť
-            if (housingID != null)
-            {
-                var housing = GetHousingUnit(housingID);
-                if (housing != null) { 
-                    housing.Add(person);
-                    return true;
-                }
-                return false;
-            }
-            return false;
+            return Add(new HousingUnit(0, this));
         }
 
         public override HousingUnit? GetHousingUnit(int? housingID)

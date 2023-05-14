@@ -4,10 +4,9 @@ namespace HousingGenerators
 {
     public static class HousingUnitGenerator
     {
-        public static int uniqueHousingUnitID { get; set; }
         public static HousingUnit GenerateHousingUnit(Housing? superior,bool generateInhabitants = false)
         {
-            HousingUnit housingUnit = new HousingUnit(uniqueHousingUnitID,superior);
+            HousingUnit housingUnit = new HousingUnit(superior);
             if (generateInhabitants)
             {
                 housingUnit.Add(PersonGenerator.GeneratePeople());
@@ -28,10 +27,5 @@ namespace HousingGenerators
             }
         }
 
-        public static void SetUniqueHousingUnitID(HousingUnit housingUnit,Flat flat)
-        {
-            while (flat.Contains(uniqueHousingUnitID)) { }
-            housingUnit.unitIdentifier = uniqueHousingUnitID;
-        }
     }
 }

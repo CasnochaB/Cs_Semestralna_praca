@@ -47,12 +47,6 @@ namespace Database
             housingUnit.Add(person);
         }
 
-        public override bool AddInhabitants(Person person, int? housingID = null)
-        {
-            housingUnit.Add(person);
-            return true;
-        }
-
         public override HousingUnit? GetHousingUnit(int? housingID = null)
         {
             return housingUnit;

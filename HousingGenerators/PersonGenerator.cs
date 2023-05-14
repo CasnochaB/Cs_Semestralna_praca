@@ -25,9 +25,10 @@ namespace HousingGenerators
         {
             DateTime date = GetRandomBirthDate();
             string firstPart = (date.Year % 100).ToString("D2") + date.Month.ToString("D2") + date.Day.ToString("D2");
+            uniqueID = random.Next(0, 10000);
             string secondPart = uniqueID.ToString("D4");
             string id = firstPart + "/" + secondPart;
-            while (!PersonRegister.Contains(id))
+            while (PersonRegister.Contains(id))
             {
                 uniqueID++;
                 if (uniqueID > 9999)

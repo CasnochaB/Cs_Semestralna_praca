@@ -37,6 +37,9 @@ namespace Database
             this.superiorHousing = superiorResidence;
         }
 
+        public HousingUnit(Housing? superiorHousing) : this(1, superiorHousing) { }
+        
+
         public void Add(Person person)
         {
             if (person != null) {

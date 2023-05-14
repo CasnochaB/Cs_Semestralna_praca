@@ -7,16 +7,20 @@ namespace HousingGenerators
     {
 
         public static int uniqueHouseNumber { 
-            get { return uniqueHouseNumber++; }
+            get { return uniqueHouseNumber; }
             set { uniqueHouseNumber = value; }
         } 
+
 
         public static House GenerateHouse(bool generateInhabitants = false)
         {
             House house = new House(uniqueHouseNumber);
             if (generateInhabitants)
             {
-                //TODO
+                foreach (var person in PersonGenerator.GeneratePeople())
+                {
+                    house.Add(person);
+                }
             }
             return house;
         }
@@ -50,10 +54,13 @@ namespace HousingGenerators
             }
         }
 
-        public static void SetUniqueHouseId(Housing housing,HousingDatabase housingDatabase)
+        private static int GetUniqueHouseId(HousingDatabase housingDatabase)
         {
-            while (housingDatabase.Contains(uniqueHouseNumber)) {}
-            housing.houseNumber = uniqueHouseNumber;
+            while (housingDatabase.Contains(uniqueHouseNumber))
+            {
+                uniqueHouseNumber++;
+            }
+            return uniqueHouseNumber;
         }
     }
 }

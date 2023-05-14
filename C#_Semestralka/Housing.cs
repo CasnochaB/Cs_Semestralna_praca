@@ -22,15 +22,9 @@ namespace Database
         public abstract void RemoveInhabitants();
         public void SetHouseNumber(int houseNumber) { this.houseNumber = houseNumber;}
 
-        public abstract bool AddInhabitants(Person person, int? housingID);
-
         public abstract HousingUnit? GetHousingUnit(int? housingID = null);
-        public bool AddInhabitants(IEnumerable<Person> people, int? housingID)
+        public bool Add(IEnumerable<Person> people, int housingID = 1)
         {
-            if (housingID == null)
-            {
-                return false;
-            }
             var housing = GetHousingUnit(housingID);
             if (housing == null)
             {
