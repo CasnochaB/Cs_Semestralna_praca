@@ -9,9 +9,9 @@ namespace Database
     {
         private Dictionary<string,Person> inhabitants;
         public int numberOfInhabitants { get {  return inhabitants.Count; } }
-        public int unitOrder { get; set; }
+        public int unitOrder;
         public string unitIdentifier { get {
-                return superiorHousing == null ? "Unknown" : superiorHousing.houseNumber.ToString()  + "/" + unitOrder.ToString();    
+                return superiorHousing == null ? "Unknown" : superiorHousing.houseNumber.ToString()  + (unitOrder == 0 ? "" : "/" + unitOrder.ToString());    
             }
         }
 
@@ -24,11 +24,7 @@ namespace Database
 
         public void SetSuperiorHousing(Housing superiorHousing)
         {
-            this.superiorHousing = superiorHousing;
-            foreach (var person in inhabitants)
-            {
-                person.Value.address = unitIdentifier;
-            }   
+            this.superiorHousing = superiorHousing;          
         }
 
         public HousingUnit(int unitIdentifier, Housing? superiorResidence = null)
@@ -49,7 +45,7 @@ namespace Database
         }
         public void Add(string firstName,string lastName, string identificationNumber)
         {
-            Add(new Person(firstName, lastName, identificationNumber,unitIdentifier));
+            Add(new Person(firstName, lastName, identificationNumber));
         }
 
         public void Add(IEnumerable<Person> people)
@@ -68,12 +64,7 @@ namespace Database
 
         public bool Remove(string identificationNumber)
         {
-            if (inhabitants.Select(n => n.Key).Contains(identificationNumber))
-            {
-                inhabitants.Remove(identificationNumber);
-                return true;
-            }
-            return false;
+            return inhabitants.Remove(identificationNumber);
         }
 
         public bool Remove(IEnumerable<Person> peopleToRemove) {

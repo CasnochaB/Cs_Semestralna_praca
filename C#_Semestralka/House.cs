@@ -14,7 +14,8 @@ namespace Database
 
         public House(int houseNumber) : base(houseNumber)
         {
-            housingUnit = new HousingUnit(1);
+            housingUnit = new HousingUnit(0);
+            housingUnit.SetSuperiorHousing(this);
         }
 
         public override int numberOfInhabitants => housingUnit.numberOfInhabitants;
@@ -74,7 +75,7 @@ namespace Database
 
         public override IEnumerator<HousingUnit> GetEnumerator()
         {
-            return (IEnumerator<HousingUnit>)housingUnit;
+            yield return housingUnit;
         }
     }
 }

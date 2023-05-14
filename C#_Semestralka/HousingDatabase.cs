@@ -10,7 +10,7 @@ namespace Database
     public class HousingDatabase : IEnumerable<Housing>
     {
         private static int houseNumber = 0;
-        private List<Person> exportHousings = new List<Person>();
+        private Dictionary<(string personID, string address),Person> exportHousings = new Dictionary<(string, string), Person>();
         
         public static int GetHouseNumber()
         {
@@ -56,64 +56,159 @@ namespace Database
             return housings.Values;
         }
 
+        public int GetNumberOfInhabitnts()
+        {
+            return housings.SelectMany(n => n.Value.GetInhabitants()).Distinct().Count();
+        }
+
         public void Save(FileInfo fileInfo)
         {
-            StreamWriter streamWriter = new StreamWriter(fileInfo.FullName);
-           
+            StreamWriter streamWriter = new StreamWriter(fileInfo.FullName,false,Encoding.UTF8);
+            foreach (var housing in housings)
+            {
+                streamWriter.Flush();
+                foreach (var housingUnit in housing.Value)
+                {
+                    foreach (var person in housingUnit)
+                    {
+                        
+                        WritePersonToFile(streamWriter, housingUnit.unitIdentifier, person);
+                    }
+                }
+            }
+            streamWriter.Close();
         }
-        
+
+        private static void WritePersonToFile(StreamWriter streamWriter, string adress, Person person)
+        {
+            streamWriter.WriteLine(person.personalData.firstName + ";" +
+                                                           person.personalData.lastName + ";" +
+                                                           person.personalData.identificationNumber + ";" +
+                                                           adress);
+        }
+
         public void Load(FileInfo fileInfo)
         {
             housings.Clear();
+            PersonRegister.Clear();
             Import(fileInfo);
         }
 
         public void Import(FileInfo fileInfo)
         {
+            StreamReader streamReader;
+            if (File.Exists(fileInfo.FullName))
+            {
+                streamReader = new StreamReader(File.OpenRead(fileInfo.FullName));
+                int collisions = 0;
+                while (!streamReader.EndOfStream)
+                {
+                    var line = streamReader.ReadLine();
+                    if (line != null)
+                    {
+                        string[] strings = line.Split(";");
+                        string firstName = strings[0];
+                        string lastName = strings[1];
+                        string id = strings[2];
+                        string adress = strings[3];
+                        string[] adressParts = adress.Split("/");
+                        string houseNumberString = adressParts[0];
+                        int houseNumberInteger = Int32.Parse(houseNumberString);
+                        Person person;
+                        try
+                        {
+                            person = new Person(firstName, lastName, id);
+                        } catch
+                        {
+                            collisions++;
+                            continue;
+                        }
+                        if (adressParts.Length == 2)
+                        {
+                            string housingNumber = adressParts[1];
+                            int housingNumberInteger = Int32.Parse(housingNumber);
+                            Flat flat = new Flat(houseNumberInteger);
+                            if (!housings.ContainsKey(houseNumberInteger))
+                            {
+                                housings.Add(flat.houseNumber, flat);
+                            }
+                            HousingUnit housingUnit = new HousingUnit(housingNumberInteger);
+                            flat = (Flat)housings[houseNumberInteger];
+                            flat.Add(housingUnit);
+                            housingUnit.Add(person);
+                        } 
+                        else
+                        {
+                            House house = new House(houseNumberInteger);
+                            if (!housings.ContainsKey(houseNumberInteger))
+                            {
+                                housings.Add(houseNumberInteger, house);
+                            }
+                            housings[houseNumberInteger].Add(person);
+                        }
 
+                    }
+                }
+                streamReader.Close();
+            }
         }
 
         public void Export(FileInfo fileInfo)
         {
-
+            StreamWriter streamWriter = new StreamWriter(File.OpenWrite(fileInfo.FullName), Encoding.UTF8);
+            foreach (var person in exportHousings)
+            {
+                WritePersonToFile(streamWriter, person.Key.address, person.Value);
+            }
+            streamWriter.Close();
+            ClearExport();
         }
 
         public void AddToExport(Housing housing)
         {
-            foreach (var person in housing.GetInhabitants())
+            foreach (var housingUnit in housing)
             {
-                AddToExport(person);
+                AddToExport(housingUnit);   
             }
         }
         
-        public void AddToExport(Person person)
+        public void AddToExport(Person person,string adress)
         {
-            exportHousings.Add(person);
+            exportHousings.Add((person.personalData.identificationNumber,adress),person);
         }
         
         public void AddToExport(HousingUnit housingUnit)
         {
-            foreach (var person in housingUnit.GetInhabitants())
+            foreach (var person in housingUnit)
             {
-                AddToExport(person);
+                AddToExport(person,housingUnit.unitIdentifier);
             }
         }
 
-        public void AddToExport(IEnumerable objects)
+        public void AddToExport(IEnumerable<Housing> housings)
         {
-            foreach (var item in objects)
+            foreach (var item in housings)
             {
-                switch (item.GetType().FullName) {
-                    case "Database.House":
-                    case "Database.Flat":
-                        AddToExport((Housing)item); break;
-                    case "Database.Person":
-                        AddToExport((Person)item); break;
-                    case "Database.HousingUnit":
-                        AddToExport((HousingUnit)item); break;
-                    default: break;
-                }
+                AddToExport(item);
             }
+        }
+
+        public void ClearExport()
+        {
+            exportHousings.Clear();
+        }
+
+        public void AddToExport(IEnumerable<HousingUnit> housingUnits)
+        {
+            foreach (var item in housingUnits)
+            {
+                AddToExport(item);
+            }
+        }
+
+        public void Clear()
+        {
+            housings.Clear();
         }
 
         public bool Contains(int houseId)

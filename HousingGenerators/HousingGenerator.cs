@@ -23,7 +23,7 @@ namespace HousingGenerators
 
         public static Flat GenerateFlat(int numberOfHousingUnits = 6, bool generateHousingUnits = false, bool generateInhabitants = false)
         {
-            Flat flat = new Flat(GetUniqueHousingId(),numberOfHousingUnits);
+            Flat flat = new Flat(GetUniqueHousingId());
             if (generateHousingUnits)
             {
                 foreach (var item in HousingUnitGenerator.GenerateHousingUnits(numberOfHousingUnits, generateInhabitants))

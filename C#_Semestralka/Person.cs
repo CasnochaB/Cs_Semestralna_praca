@@ -24,7 +24,6 @@ namespace Database
                 return personalData.firstName + " " + personalData.lastName;
             }
         }
-        public string? address { get; set;}
 
 
         public DateTime birthDate { get
@@ -42,7 +41,7 @@ namespace Database
                 int.Parse(identificationNumber.Substring(4, 2)));
         }
 
-        public Person(string firstName, string lastName, string identificationNumber, string? address = null)
+        public Person(string firstName, string lastName, string identificationNumber)
         {
             PersonalData data = new PersonalData(firstName, lastName, identificationNumber); 
             if (PersonRegister.Contains(data))
@@ -55,7 +54,6 @@ namespace Database
             }
             PersonRegister.Add(data);
             personalData = data;
-            this.address = address;
         }
 
         public static bool CheckIDValidity(string identificationNumber)

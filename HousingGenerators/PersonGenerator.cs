@@ -19,10 +19,10 @@ namespace HousingGenerators
         private static readonly string[] maleLastNames = { "Novák", "Horváth", "Kováč", "Varga", "Tóth", "Nagy", "Szabó", "Farkaš", "Baláž", "Molnár" };
         private static readonly string[] femaleLastNames = { "Nováková", "Horváthová", "Kováčová", "Vargová", "Tóthová", "Nagyová", "Szabóová", "Farkašová", "Balážová", "Molnárová" };
 
-        private static Random random = new Random();
+        private static Random random = new Random(2);
         private static int uniqueID = 0;
-        private static int lowerCountSpan = 2;
-        private static int upperCountSpan = 4;
+        private static int lowerCountSpan = 4;
+        private static int upperCountSpan = 8;
         public static string GetUniqueID()
         {
             DateTime date = GetRandomBirthDate();
@@ -84,7 +84,8 @@ namespace HousingGenerators
 
         public static Person GeneratePerson()
         {
-            return GeneratePerson(GetRandomFirstName(RandomTrueFalse()), GetRandomLastName(RandomTrueFalse()));
+            bool isMale = RandomTrueFalse();
+            return GeneratePerson(GetRandomFirstName(isMale), GetRandomLastName(isMale));
         }
 
         private static bool RandomTrueFalse()

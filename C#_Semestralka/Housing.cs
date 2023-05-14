@@ -25,15 +25,21 @@ namespace Database
         public abstract HousingUnit? GetHousingUnit(int? housingID = null);
         public bool Add(IEnumerable<Person> people, int housingID = 1)
         {
-            var housing = GetHousingUnit(housingID);
-            if (housing == null)
-            {
-                return false;
-            }
             foreach (var item in people)
             {
-                housing.Add(people.ToList());
+                if (Add(item, housingID) == false) {  return false; }
             }
+            return true;
+        }
+
+        public bool Add(Person person, int housingID = 1)
+        {
+            var housing = GetHousingUnit(housingID);
+            if (housing == null) 
+            {
+                return false; 
+            }
+            housing.Add(person);
             return true;
         }
 

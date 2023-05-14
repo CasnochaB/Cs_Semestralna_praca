@@ -33,5 +33,9 @@ namespace Database
         public static void Clear() { 
             people.Clear();
         }
+
+        public static int GetNumberOfPeople() {
+            return people.Count;
+        }
     }
 }

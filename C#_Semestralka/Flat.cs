@@ -12,18 +12,14 @@ namespace Database
     public class Flat : Housing,IEnumerable<HousingUnit>
     {
         private Dictionary<int,HousingUnit> housingUnits;
-        private int currentHousingUnitID = 0;
-        private int maxHousingUnits;
+        private int currentHousingUnitID = 1;
 
-        public override int numberOfInhabitants => housingUnits.Select(unit => unit.Value.numberOfInhabitants).Sum();
+        public override int numberOfInhabitants => housingUnits.SelectMany(unit => unit.Value.GetInhabitants()).Distinct().Count();
 
         public override int numberOfHousingUnits => housingUnits.Count;
 
-        public Flat(int houseNumber,int maximumHousingUnits) : base(houseNumber) {
+        public Flat(int houseNumber) : base(houseNumber) {
             housingUnits = new Dictionary<int, HousingUnit>();
-            maxHousingUnits = maximumHousingUnits; 
-        }
-        public Flat(int houseNumber) : this(houseNumber,6) { 
         }
 
         public override IEnumerable<HousingUnit> GetHousingUnits()
@@ -61,10 +57,6 @@ namespace Database
 
         public bool Add(HousingUnit housingUnit)
         {
-            if (housingUnits.Count >= maxHousingUnits)
-            {
-                return false;
-            }
             housingUnit.SetSuperiorHousing(this);
             while (housingUnits.ContainsKey(housingUnit.unitOrder))
             {
@@ -76,7 +68,7 @@ namespace Database
 
         public bool Add()
         {
-            return Add(new HousingUnit(0, this));
+            return Add(new HousingUnit(currentHousingUnitID, this));
         }
 
         public override HousingUnit? GetHousingUnit(int? housingID)
