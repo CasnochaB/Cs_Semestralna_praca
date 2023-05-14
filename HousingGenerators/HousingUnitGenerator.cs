@@ -4,23 +4,13 @@ namespace HousingGenerators
 {
     public static class HousingUnitGenerator
     {
-        public static int uniqueHousingUnitID { 
-            get 
-            {
-                return ++uniqueHousingUnitID;
-            } 
-            set 
-            { 
-                uniqueHousingUnitID = value;
-            }
-        }
-
+        public static int uniqueHousingUnitID { get; set; }
         public static HousingUnit GenerateHousingUnit(Housing? superior,bool generateInhabitants = false)
         {
             HousingUnit housingUnit = new HousingUnit(uniqueHousingUnitID,superior);
             if (generateInhabitants)
             {
-                //TODO
+                housingUnit.Add(PersonGenerator.GeneratePeople());
             }
             return housingUnit;
         }

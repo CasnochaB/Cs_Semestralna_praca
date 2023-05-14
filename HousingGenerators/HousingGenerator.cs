@@ -26,7 +26,6 @@ namespace HousingGenerators
             Flat flat = new Flat(uniqueHouseNumber,numberOfHousingUnits);
             if (generateHousingUnits)
             {
-                //TODO
                 foreach (var item in HousingUnitGenerator.GenerateHousingUnits(numberOfHousingUnits, generateInhabitants))
                 {
                     flat.Add(item);

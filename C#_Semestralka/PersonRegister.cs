@@ -10,20 +10,28 @@ namespace Database
 {
     public static class PersonRegister
     {
-        private static HashSet<PersonalData> people = new HashSet<PersonalData>();
+        private static Dictionary<string,PersonalData> people = new Dictionary<string,PersonalData>();
 
-        public static void Add(PersonalData person)
+        public static void Add(PersonalData personalData)
         {
-            people.Add(person);
+            people.Add(personalData.identificationNumber,personalData);
         }
         public static void Remove(PersonalData person)
         {
-            people.Remove(person);
+            people.Remove(person.identificationNumber);
         }
 
         public static bool Contains(PersonalData person)
         {
-            return people.Contains(person);
+            return people.ContainsKey(person.identificationNumber);
+        }
+
+        public static bool Contains(string personID) { 
+            return people.ContainsKey(personID);
+        }
+
+        public static void Clear() { 
+            people.Clear();
         }
     }
 }
