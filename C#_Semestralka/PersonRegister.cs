@@ -11,7 +11,7 @@ namespace Database
     public static class PersonRegister
     {
         private static Dictionary<string,PersonalData> people = new Dictionary<string,PersonalData>();
-
+        public static int count { get { return people.Count; } }
         public static void Add(PersonalData personalData)
         {
             people.Add(personalData.identificationNumber,personalData);

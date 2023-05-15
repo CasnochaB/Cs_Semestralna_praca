@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\C#_Semestralka\Housing_Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="resources\edit.png" />
     <Resource Include="resources\filter.png" />
     <Resource Include="resources\minus.png" />
