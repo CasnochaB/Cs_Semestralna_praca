@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="1200">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <Grid Grid.Row="1">
+            <Frame Name="MainFrame" Source="HousingPage.xaml">
+            </Frame>
+        </Grid>
     </Grid>
 </Window>

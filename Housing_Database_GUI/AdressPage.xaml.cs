@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace Housing_Database_GUI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdressPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdressPage : Page
     {
-        public MainWindow()
+        public AdressPage()
         {
             InitializeComponent();
-            MainFrame.Source = new Uri("HousingPage.xaml",UriKind.Relative);
         }
     }
 }
