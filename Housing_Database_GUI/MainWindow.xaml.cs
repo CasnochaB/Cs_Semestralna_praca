@@ -23,7 +23,7 @@ namespace Housing_Database_GUI
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Source = new Uri("HousingPage.xaml",UriKind.Relative);
+            MainFrame.Source = new Uri("AdressPage.xaml",UriKind.Relative);
         }
     }
 }
