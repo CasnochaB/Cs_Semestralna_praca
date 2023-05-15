@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +23,35 @@ namespace Housing_Database_GUI
     {
         public MainWindow()
         {
+            MainFrame = new Frame();
+            MainFrame.Source = new Uri("HousingPage.xaml", UriKind.Relative);
+            MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            
             InitializeComponent();
-            MainFrame.Source = new Uri("AdressPage.xaml",UriKind.Relative);
+        }
+
+        private void PageSelector_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = PageSelector_ComboBox.SelectedIndex;
+            Debug.WriteLine(index);
+            switch (index)
+            {
+                case 0:
+                    MainFrame.Source = new Uri("HousingPage.xaml", UriKind.Relative);
+                    break;
+                case 1:
+                    MainFrame.Source = new Uri("AdressPage.xaml", UriKind.Relative);
+                    break;
+                case 2:
+                    MainFrame.Source = new Uri("PersonRegisterPage.xaml", UriKind.Relative);
+                    break;
+                case 3:
+                    MainFrame.Source = new Uri("AdressPage.xaml", UriKind.Relative);
+                    break;
+                default:
+                    MainFrame.Source = new Uri("HousingPage.xaml", UriKind.Relative);
+                    break;
+            }
         }
     }
 }

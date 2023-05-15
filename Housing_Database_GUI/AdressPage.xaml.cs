@@ -18,7 +18,7 @@ namespace Housing_Database_GUI
     /// <summary>
     /// Interaction logic for AdressPage.xaml
     /// </summary>
-    public partial class AdressPage : Page
+    public partial class AdressPage : UserControl
     {
         public AdressPage()
         {

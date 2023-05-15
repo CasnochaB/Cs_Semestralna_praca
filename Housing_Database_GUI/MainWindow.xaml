@@ -12,8 +12,15 @@
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <ComboBox Name="PageSelector_ComboBox" SelectionChanged="PageSelector_ComboBox_SelectionChanged" FontSize="40">
+            <ComboBoxItem IsSelected="True">Housings list</ComboBoxItem>
+            <ComboBoxItem>Adress list</ComboBoxItem>
+            <ComboBoxItem>Person register</ComboBoxItem>
+            <ComboBoxItem>Export preview</ComboBoxItem>
+        </ComboBox>
+        
         <Grid Grid.Row="1">
-            <Frame Name="MainFrame" Source="HousingPage.xaml">
+            <Frame Name="MainFrame" Source="HousingPage.xaml" NavigationUIVisibility="Hidden">
             </Frame>
         </Grid>
     </Grid>
