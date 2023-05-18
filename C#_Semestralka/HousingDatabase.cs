@@ -81,9 +81,9 @@ namespace Database
 
         private static void WritePersonToFile(StreamWriter streamWriter, string adress, Person person)
         {
-            streamWriter.WriteLine(person.personalData.firstName + ";" +
-                                                           person.personalData.lastName + ";" +
-                                                           person.personalData.identificationNumber + ";" +
+            streamWriter.WriteLine(person.personalData.FirstName + ";" +
+                                                           person.personalData.LastName + ";" +
+                                                           person.personalData.IdentificationNumber + ";" +
                                                            adress);
         }
 
@@ -94,7 +94,7 @@ namespace Database
             Import(fileInfo);
         }
 
-        public void Import(FileInfo fileInfo)
+        public int Import(FileInfo fileInfo)
         {
             StreamReader streamReader;
             if (File.Exists(fileInfo.FullName))
@@ -150,7 +150,9 @@ namespace Database
                     }
                 }
                 streamReader.Close();
+                return collisions;
             }
+            return 0;
         }
 
         public void Export(FileInfo fileInfo)
@@ -174,7 +176,7 @@ namespace Database
         
         public void AddToExport(Person person,string adress)
         {
-            exportHousings.Add((person.personalData.identificationNumber,adress),person);
+            exportHousings.Add((person.personalData.IdentificationNumber,adress),person);
         }
         
         public void AddToExport(HousingUnit housingUnit)

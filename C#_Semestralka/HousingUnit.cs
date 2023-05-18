@@ -8,14 +8,24 @@ namespace Database
     public class HousingUnit: IEnumerable<Person>
     {
         private Dictionary<string,Person> inhabitants;
-        public int numberOfInhabitants { get {  return inhabitants.Count; } }
+        private HashSet<string> inhabitantsHashset;
+        public int numberOfInhabitants { 
+            get 
+            {
+                return inhabitants.Count; 
+            } 
+        }
+
         public int unitOrder;
-        public string unitIdentifier { get {
+        public string unitIdentifier {
+            get 
+            {
                 return superiorHousing == null ? "Unknown" : superiorHousing.houseNumber.ToString()  + (unitOrder == 0 ? "" : "/" + unitOrder.ToString());    
             }
         }
 
         private Housing? superiorHousing = null;
+
 
         public Housing? GetSuperiorHousing()
         {
@@ -29,6 +39,7 @@ namespace Database
 
         public HousingUnit(int unitIdentifier, Housing? superiorResidence = null)
         {
+            inhabitantsHashset = new HashSet<string>();
             inhabitants = new Dictionary<string,Person>();
             this.unitOrder = unitIdentifier;
             this.superiorHousing = superiorResidence;
@@ -40,7 +51,10 @@ namespace Database
         public void Add(Person person)
         {
             if (person != null) {
-                inhabitants.Add(person.personalData.identificationNumber,person);
+                if (inhabitants.ContainsKey(person.personalData.IdentificationNumber)) {
+                    inhabitantsHashset.Add(person.personalData.IdentificationNumber);
+                    inhabitants.Add(person.personalData.IdentificationNumber, person);
+                }
             }
         }
         public void Add(string firstName,string lastName, string identificationNumber)
@@ -59,11 +73,13 @@ namespace Database
 
         public bool Remove(Person person)
         {
-            return inhabitants.Remove(person.personalData.identificationNumber);
+            inhabitantsHashset.Remove(person.personalData.IdentificationNumber);
+            return inhabitants.Remove(person.personalData.IdentificationNumber);
         }
 
         public bool Remove(string identificationNumber)
         {
+            inhabitantsHashset.Remove(identificationNumber);
             return inhabitants.Remove(identificationNumber);
         }
 
@@ -72,7 +88,7 @@ namespace Database
             {
                 foreach (var person in peopleToRemove)
                 {
-                    inhabitants.Remove(person.personalData.identificationNumber);
+                    inhabitants.Remove(person.personalData.IdentificationNumber);
                 }
                 return true;
             }

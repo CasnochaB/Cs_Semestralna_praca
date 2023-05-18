@@ -11,19 +11,24 @@ namespace Database
     public static class PersonRegister
     {
         private static Dictionary<string,PersonalData> people = new Dictionary<string,PersonalData>();
-        public static int count { get { return people.Count; } }
+        public static int count {
+            get 
+            { 
+                return people.Count; 
+            } 
+        }
         public static void Add(PersonalData personalData)
         {
-            people.Add(personalData.identificationNumber,personalData);
+            people.Add(personalData.IdentificationNumber,personalData);
         }
         public static void Remove(PersonalData person)
         {
-            people.Remove(person.identificationNumber);
+            people.Remove(person.IdentificationNumber);
         }
 
         public static bool Contains(PersonalData person)
         {
-            return people.ContainsKey(person.identificationNumber);
+            return people.ContainsKey(person.IdentificationNumber);
         }
 
         public static bool Contains(string personID) { 

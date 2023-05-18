@@ -8,27 +8,35 @@ namespace Database
         {
             public PersonalData(string firstName, string lastName, string identificationNumber)
             {
-                this.firstName = firstName;
-                this.lastName = lastName;
-                this.identificationNumber = identificationNumber;
+                this.FirstName = firstName;
+                this.LastName = lastName;
+                this.IdentificationNumber = identificationNumber;
             }
 
-            public string firstName { get; }
-            public string lastName { get; }
-            public string identificationNumber { get; }
+            public string FirstName { get; }
+            public string LastName { get; }
+            public string IdentificationNumber { get; }
         }
 
         public PersonalData personalData { get; }
-        public int age { get {  return new DateTime(DateTime.Today.Ticks - birthDate.Ticks).Year; } }
-        public string fullName { get {
-                return personalData.firstName + " " + personalData.lastName;
+        public int age { 
+            get 
+            {  
+                return new DateTime(DateTime.Today.Ticks - birthDate.Ticks).Year; 
+            } 
+        }
+        public string fullName {
+            get 
+            {
+                return personalData.FirstName + " " + personalData.LastName;
             }
         }
 
 
-        public DateTime birthDate { get
+        public DateTime birthDate {
+            get
             {
-                return GetBirthDate(personalData.identificationNumber);
+                return GetBirthDate(personalData.IdentificationNumber);
             }
         }
 
