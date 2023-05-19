@@ -28,21 +28,25 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-
+            <ListBox Name="Housings_Listbox" SelectionChanged="Housings_Listbox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <ListBox.ItemTemplate>
+                        <ItemContainerTemplate>
+                            <TextBlock Text="{Binding houseNumber}"></TextBlock>
+                        </ItemContainerTemplate>
+                    </ListBox.ItemTemplate>
             </ListBox>
             <TextBox Grid.Column="0" VerticalAlignment="Center" Height="20"/>
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
-                <Button Background="Transparent" BorderBrush="Transparent">
+                <Button Name="AddHousing_Button" Click="AddHousing_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/plus.png"/>
                 </Button>
-                <Button Background="Transparent" BorderBrush="Transparent">
+                <Button Name="RemoveHousing_button" Click="RemoveHousing_button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/minus.png"></Image>
                 </Button>
-                <Button  Background="Transparent" BorderBrush="Transparent">
+                <Button Name="EditHousing_Button" Click="EditHousing_Button_Click"  Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/edit.png"></Image>
                 </Button>
-                <Button Background="Transparent" BorderBrush="Transparent">
+                <Button Name="FilterHousings_Button" Click="FilterHousings_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/filter.png"></Image>
                 </Button>
             </StackPanel>
@@ -58,21 +62,21 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <ListBox Name="HousingUnits_ListBox" SelectionChanged="HousingUnits_ListBox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
             </ListBox>
 
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
-                <Button Background="Transparent" BorderBrush="Transparent">
+                <Button Name="AddHousingUnits_Button" Click="AddHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/plus.png"/>
                 </Button>
-                <Button Background="Transparent" BorderBrush="Transparent">
+                <Button Name="RemoveHousingUnits_Button" Click="RemoveHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/minus.png"></Image>
                 </Button>
-                <Button  Background="Transparent" BorderBrush="Transparent">
+                <Button Name="EditHousingUnits_Button" Click="EditHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/edit.png"></Image>
                 </Button>
-                <Button  Background="Transparent" BorderBrush="Transparent">
+                <Button Name="FilterHousingUnits_Button" Click="FilterHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/filter.png"></Image>
                 </Button>
             </StackPanel>
@@ -88,21 +92,21 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-
-            </ListBox>
+                <ListBox Name="People_ListBox" SelectionChanged="People_ListBox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    
+                </ListBox>
             <TextBox Grid.Column="0" VerticalAlignment="Center" Height="20"/>
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
-                <Button Background="Transparent" BorderBrush="Transparent">
+                <Button Name="AddPerson_Button" Click="AddPerson_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/plus.png"/>
                 </Button>
-                <Button Background="Transparent" BorderBrush="Transparent">
+                <Button Name="RemovePerson_Button" Click="RemovePerson_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/minus.png"></Image>
                 </Button>
-                <Button  Background="Transparent" BorderBrush="Transparent">
+                <Button Name="EditPerson_Button" Click="EditPerson_Button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/edit.png"></Image>
                 </Button>
-                <Button  Background="Transparent" BorderBrush="Transparent">
+                <Button Name="FilterPeople_Button" Click="FilterPeople_Button_Click"  Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/filter.png"></Image>
                 </Button>
             </StackPanel>

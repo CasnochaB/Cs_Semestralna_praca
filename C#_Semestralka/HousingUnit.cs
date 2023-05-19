@@ -8,7 +8,6 @@ namespace Database
     public class HousingUnit: IEnumerable<Person>
     {
         private Dictionary<string,Person> inhabitants;
-        private HashSet<string> inhabitantsHashset;
         public int numberOfInhabitants { 
             get 
             {
@@ -39,7 +38,6 @@ namespace Database
 
         public HousingUnit(int unitIdentifier, Housing? superiorResidence = null)
         {
-            inhabitantsHashset = new HashSet<string>();
             inhabitants = new Dictionary<string,Person>();
             this.unitOrder = unitIdentifier;
             this.superiorHousing = superiorResidence;
@@ -51,10 +49,8 @@ namespace Database
         public void Add(Person person)
         {
             if (person != null) {
-                if (inhabitants.ContainsKey(person.personalData.IdentificationNumber)) {
-                    inhabitantsHashset.Add(person.personalData.IdentificationNumber);
-                    inhabitants.Add(person.personalData.IdentificationNumber, person);
-                }
+                if (inhabitants.ContainsKey(person.personalData.IdentificationNumber))
+                inhabitants.Add(person.personalData.IdentificationNumber,person);
             }
         }
         public void Add(string firstName,string lastName, string identificationNumber)
@@ -73,13 +69,11 @@ namespace Database
 
         public bool Remove(Person person)
         {
-            inhabitantsHashset.Remove(person.personalData.IdentificationNumber);
             return inhabitants.Remove(person.personalData.IdentificationNumber);
         }
 
         public bool Remove(string identificationNumber)
         {
-            inhabitantsHashset.Remove(identificationNumber);
             return inhabitants.Remove(identificationNumber);
         }
 

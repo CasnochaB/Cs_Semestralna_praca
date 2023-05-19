@@ -31,11 +31,13 @@ namespace Housing_Database_GUI
         public MainWindow()
         {
             housingDatabase = new HousingDatabase();
+            housingDatabase.Load(new FileInfo("C:\\Users\\brano\\OneDrive\\Dokumenty\\!CSharp\\Semestralna_praca\\C#_Semestralka\\sample.csv"));
             MainFrame = new Frame();
-            MainFrame.Source = new Uri("HousingPage.xaml", UriKind.Relative);
             MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             
             InitializeComponent();
+
+            MainFrame.Content = new HousingPage(housingDatabase);
         }
 
         private void PageSelector_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -49,19 +51,19 @@ namespace Housing_Database_GUI
             switch (index)
             {
                 case 0:
-                    MainFrame.Content = new HousingPage();
+                    MainFrame.Content = new HousingPage(housingDatabase);
                     break;
                 case 1:
-                    MainFrame.Content = new AdressPage();
+                    MainFrame.Content = new AdressPage(housingDatabase);
                     break;
                 case 2:
-                    MainFrame.Content = new PersonRegisterPage();
+                    MainFrame.Content = new PersonRegisterPage(housingDatabase);
                     break;
                 case 3:
-                    MainFrame.Content = new HousingPage();
+                    MainFrame.Content = new HousingPage(housingDatabase);
                     break;
                 default:
-                    MainFrame.Content = new HousingPage();
+                    MainFrame.Content = new HousingPage(housingDatabase);
                     break;
             }
         }

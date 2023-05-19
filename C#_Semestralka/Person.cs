@@ -18,7 +18,7 @@ namespace Database
             public string IdentificationNumber { get; }
         }
 
-        public PersonalData personalData { get; }
+        public PersonalData personalData { get; set; }
         public int age { 
             get 
             {  
@@ -51,8 +51,7 @@ namespace Database
 
         public Person(string firstName, string lastName, string identificationNumber)
         {
-            PersonalData data = new PersonalData(firstName, lastName, identificationNumber); 
-            if (PersonRegister.Contains(data))
+            if (PersonRegister.Contains(identificationNumber))
             {
                 throw new ArgumentException("Identification number must be unique");
             }
@@ -60,8 +59,8 @@ namespace Database
             {
                 throw new ArgumentException("Identification number is invalid");
             }
-            PersonRegister.Add(data);
-            personalData = data;
+            personalData = new PersonalData(firstName,lastName,identificationNumber);
+            PersonRegister.Add(this);
         }
 
         public static bool CheckIDValidity(string identificationNumber)
@@ -72,7 +71,6 @@ namespace Database
             }
             if (parts[0].Length != 6) { return false; }
             if (parts[1].Length != 4) { return false; }
-            DateTime birthdate = GetBirthDate(parts[0]);
             int year = Int32.Parse(identificationNumber.Substring(0, 2));
             string dateString = (year < DateTime.Today.Year + 1 ? "20" : "19") + parts[0];
             return DateTime.TryParseExact(dateString, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);

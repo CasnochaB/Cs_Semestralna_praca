@@ -20,7 +20,7 @@ namespace Housing_Database_GUI
     /// </summary>
     public partial class PersonRegisterPage : UserControl
     {
-        public PersonRegisterPage()
+        public PersonRegisterPage(Database.HousingDatabase housingDatabase)
         {
             InitializeComponent();
         }
