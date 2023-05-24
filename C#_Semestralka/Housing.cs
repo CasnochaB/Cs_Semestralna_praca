@@ -13,14 +13,24 @@ namespace Database
         public int houseNumber { get; set; }
         public abstract int numberOfInhabitants { get; }
         public abstract int numberOfHousingUnits { get; }
-
+        public string housingType { get { return GetType().Name; } }
 
         protected Housing(int number) { houseNumber = number; }
         public abstract IEnumerable<HousingUnit> GetHousingUnits();
         public abstract IEnumerable<Person> GetInhabitants();
 
         public abstract void Clear();
-        public abstract void RemoveInhabitants();
+        public abstract void ClearInhabitants();
+        public void Remove(Person person)
+        {
+            foreach (var item in GetHousingUnits())
+            {
+                if (item.Contains(person))
+                {
+                    item.Remove(person);
+                }
+            }
+        }
         public void SetHouseNumber(int houseNumber) { this.houseNumber = houseNumber;}
 
         public abstract HousingUnit? GetHousingUnit(int? housingID = null);

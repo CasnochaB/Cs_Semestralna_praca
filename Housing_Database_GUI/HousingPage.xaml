@@ -28,13 +28,14 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox Name="Housings_Listbox" SelectionChanged="Housings_Listbox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <ListBox.ItemTemplate>
-                        <ItemContainerTemplate>
-                            <TextBlock Text="{Binding houseNumber}"></TextBlock>
-                        </ItemContainerTemplate>
-                    </ListBox.ItemTemplate>
-            </ListBox>
+            <ListView Name="Housings_Listbox" SelectionChanged="Housings_Listbox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="House number" DisplayMemberBinding="{Binding houseNumber}"></GridViewColumn>
+                            <GridViewColumn Header="Housing type" DisplayMemberBinding="{Binding housingType}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+            </ListView>
             <TextBox Grid.Column="0" VerticalAlignment="Center" Height="20"/>
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
                 <Button Name="AddHousing_Button" Click="AddHousing_Button_Click" Background="Transparent" BorderBrush="Transparent">
@@ -62,9 +63,13 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox Name="HousingUnits_ListBox" SelectionChanged="HousingUnits_ListBox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-
-            </ListBox>
+            <ListView Name="HousingUnits_ListBox" SelectionChanged="HousingUnits_ListBox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Unit number" DisplayMemberBinding="{Binding unitIdentifier}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+            </ListView>
 
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
                 <Button Name="AddHousingUnits_Button" Click="AddHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
@@ -92,9 +97,14 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-                <ListBox Name="People_ListBox" SelectionChanged="People_ListBox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    
-                </ListBox>
+                <ListView Name="People_ListBox" SelectionChanged="People_ListBox_SelectionChanged" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding fullName}"></GridViewColumn>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding personalData.IdentificationNumber}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             <TextBox Grid.Column="0" VerticalAlignment="Center" Height="20"/>
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
                 <Button Name="AddPerson_Button" Click="AddPerson_Button_Click" Background="Transparent" BorderBrush="Transparent">
@@ -129,8 +139,8 @@
                 <Button Height="40" Margin="0,10,0,0">
                     <TextBlock Text="" TextWrapping="Wrap" TextAlignment="Center"/>
                 </Button>
-                <ToggleButton Height="auto" Margin="0,10,0,0">
-                    <TextBlock Text="Show housing inhabitants" TextWrapping="Wrap" TextAlignment="Center"/>
+                <ToggleButton Name="ToggleIgnoreHousingUnits" Click="ToggleIgnoreHousingUnits_Click" Height="auto" Margin="0,10,0,0">
+                    <TextBlock Text="Show housing only inhabitants" TextWrapping="Wrap" TextAlignment="Center"/>
                 </ToggleButton>
             </StackPanel>
 

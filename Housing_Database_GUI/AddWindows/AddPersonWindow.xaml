@@ -11,6 +11,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -18,15 +19,15 @@
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" FontSize="8">*Ak chcete pridať existujúcu osobu stačí zadať jej rodné číslo, nová osoba potrebuje unikátne rodné číslo</TextBlock>
+        <TextBlock VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" FontSize="8">*Ak chcete pridať existujúcu osobu stačí zadať jej rodné číslo, nová osoba potrebuje unikátne rodné číslo</TextBlock>
         
         <Label Grid.Row="1" Grid.Column="0" Content="First name:" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <Label Grid.Row="2" Grid.Column="0" Content="Last name:" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap">Identification number: </TextBlock>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Name="FirstName_TextBox" TextChanged="FirstName_TextBox_TextChanged"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="LastName_TextBox" TextChanged="LastName_TextBox_TextChanged"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="IdentificationNumber_TextBox" TextChanged="IdentificationNumber_TextBox_TextChanged"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Name="FirstName_TextBox" TextChanged="FirstName_TextBox_TextChanged" Height="24"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Name="LastName_TextBox" TextChanged="LastName_TextBox_TextChanged" Height="24"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Name="IdentificationNumber_TextBox" TextChanged="IdentificationNumber_TextBox_TextChanged" Height="24"></TextBox>
 
         <Label Name="CorrectionLabel" Grid.Row="4" Grid.Column="1" Content="" Foreground="Red"> </Label>
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">

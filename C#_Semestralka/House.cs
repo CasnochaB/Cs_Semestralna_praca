@@ -38,7 +38,7 @@ namespace Database
             return housingUnit.GetInhabitants();
         }
 
-        public override void RemoveInhabitants()
+        public override void ClearInhabitants()
         {
             housingUnit.Clear();
         }

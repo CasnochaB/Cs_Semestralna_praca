@@ -1,6 +1,10 @@
 ﻿using Database;
 using Housing_Database_GUI.AddWindows;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,7 +16,7 @@ namespace Housing_Database_GUI
     public partial class HousingPage : UserControl
     {
         public HousingDatabase database;
-        private bool ignoreHousingUnits = false;
+        private bool ignoreHousingUnits = true;
 
         public HousingPage()
         {
@@ -29,22 +33,65 @@ namespace Housing_Database_GUI
 
         private void HousingListReset()
         {
-            Housings_Listbox.ItemsSource = database.GetHousings();
+            People_ListBox.UnselectAll();
+            People_ListBox.ItemsSource = null;
+            HousingUnits_ListBox.UnselectAll();
+            HousingUnits_ListBox.ItemsSource = null;
+            Housings_Listbox.UnselectAll(); 
+            Housings_Listbox.ItemsSource = new List<Object>();
+            Housings_Listbox.Items.Refresh();
+            var data = database.GetHousings();
+            if (data != null)
+            {
+                Housings_Listbox.ItemsSource = new ObservableCollection<Housing>(data);
+            }
+            else
+            {
+                Housings_Listbox.ItemsSource = new ObservableCollection<Housing>();
+            }
+            Housings_Listbox.Items.Refresh();
         }
 
         private void AddHousing_Button_Click(object sender, RoutedEventArgs e)
         {
-            //database.Add(housing);
+            AddHousingWindow addHousingWindow = new AddHousingWindow();
+            addHousingWindow.housingDatabase = database;
+            var result = addHousingWindow.ShowDialog();
+            if (result == true)
+            {
+                int houseNumber = Int32.Parse(addHousingWindow.HouseNumber_TextBox.Text);
+                if (addHousingWindow.SelectHousingType_ComboBox.SelectedIndex == 0)
+                {
+                    House house = new House(houseNumber);
+                    database.Add(house);
+                } else
+                {
+                    int housingUnitsCount = Int32.Parse(addHousingWindow.UnitsNumber_TextBox.Text);
+                    Flat flat = new Flat(houseNumber, housingUnitsCount);
+                    database.Add(flat);
+                }
+            }
+            HousingListReset();
         }
 
         private void RemoveHousing_button_Click(object sender, RoutedEventArgs e)
         {
-
+            var housing = GetSelectedHousing();
+            database.Remove(housing);
+            RemoveHousing_button.IsEnabled = false;
+            HousingListReset();
         }
 
         private void EditHousing_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            var housing = GetSelectedHousing();
+            AddHousingWindow addHousingWindow = new AddHousingWindow(housing.houseNumber, database);
+            var result = addHousingWindow.ShowDialog();
+            if (result == true)
+            {
+                housing.houseNumber = Int32.Parse(addHousingWindow.HouseNumber_TextBox.Text);
+            }
+            HousingListReset();
         }
 
         private void FilterHousings_Button_Click(object sender, RoutedEventArgs e)
@@ -54,7 +101,7 @@ namespace Housing_Database_GUI
 
         private void AddHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void RemoveHousingUnits_Button_Click(object sender, RoutedEventArgs e)
@@ -87,10 +134,22 @@ namespace Housing_Database_GUI
 
         private void RemovePerson_Button_Click(object sender, RoutedEventArgs e)
         {
-            People_ListBox.SelectedIndex = 0;
             var person = GetSelectedPerson();
-            var housingUnit = GetSelectedHousingUnit();
-            housingUnit.Remove(person);
+            if (person == null)
+            {
+                RemovePerson_Button.IsEnabled = false;
+                return;
+            }
+            if (ignoreHousingUnits)
+            {
+                var housing = GetSelectedHousing();
+                housing.Remove(person);
+            }
+            else
+            {
+                var housingUnit = GetSelectedHousingUnit();
+                housingUnit.Remove(person);
+            }
             RemovePerson_Button.IsEnabled = false;
         }
 
@@ -131,29 +190,73 @@ namespace Housing_Database_GUI
 
         private Person GetSelectedPerson()
         {
-            var person = (Person)HousingUnits_ListBox.SelectedItem; 
+            var person = (Person)People_ListBox.SelectedItem; 
             return person;
         }
 
         private Housing GetSelectedHousing()
         {
-            var housing = (Housing)HousingUnits_ListBox.SelectedItem;
+            var housing = (Housing)Housings_Listbox.SelectedItem;
             return housing;
         }
 
         private void People_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            AddPerson_Button.IsEnabled = true;
+            RemovePerson_Button.IsEnabled = true;
         }
 
         private void HousingUnits_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ignoreHousingUnits)
+            { 
 
+            }
+            else
+            {
+                RemoveHousingUnits_Button.IsEnabled = true;
+                var housingUnit = GetSelectedHousingUnit();
+                if (housingUnit != null)
+                {
+                    People_ListBox.ItemsSource = housingUnit.GetInhabitants();
+                }
+            }         
         }
 
         private void Housings_Listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            RemoveHousing_button.IsEnabled = true;
+            var housing = GetSelectedHousing();
+            if (housing == null) {
+                return;
+            }
+            if (ignoreHousingUnits)
+            {
+                HousingUnits_ListBox.ItemsSource = null;
+                AddHousingUnits_Button.IsEnabled = false;
+                RemoveHousingUnits_Button.IsEnabled = false;
+                FilterHousingUnits_Button.IsEnabled = false;
+                People_ListBox.ItemsSource = housing.GetInhabitants();
+            }
+            else
+            {
+                if (housing != null)
+                {
+                    AddHousingUnits_Button.IsEnabled = true;
+                    FilterHousingUnits_Button.IsEnabled = true;
+                    HousingUnits_ListBox.ItemsSource = housing.GetHousingUnits();
+                    HousingUnits_ListBox.Items.Refresh();
+                }
+                People_ListBox.ItemsSource = null;
+            }
+        }
 
+        private void ToggleIgnoreHousingUnits_Click(object sender, RoutedEventArgs e)
+        {
+            ignoreHousingUnits = !ignoreHousingUnits;
+            int housingIndex = Housings_Listbox.SelectedIndex;
+            HousingListReset();
+            Housings_Listbox.SelectedIndex = housingIndex;
         }
     }
 }

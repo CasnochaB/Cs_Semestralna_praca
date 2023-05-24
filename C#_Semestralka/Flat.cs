@@ -38,11 +38,11 @@ namespace Database
 
         public override void Clear()
         {
-            RemoveInhabitants();
+            ClearInhabitants();
             housingUnits.Clear();
         }
 
-        public override void RemoveInhabitants()
+        public override void ClearInhabitants()
         {
             foreach (var item in housingUnits)
             {
