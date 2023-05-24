@@ -18,8 +18,12 @@ namespace Database
 
         public override int numberOfHousingUnits => housingUnits.Count;
 
-        public Flat(int houseNumber) : base(houseNumber) {
+        public Flat(int houseNumber,int housingUnitsCount = 0) : base(houseNumber) {
             housingUnits = new Dictionary<int, HousingUnit>();
+            for (int i = 0;i < housingUnitsCount;i++)
+            {
+                Add();
+            }
         }
 
         public override IEnumerable<HousingUnit> GetHousingUnits()

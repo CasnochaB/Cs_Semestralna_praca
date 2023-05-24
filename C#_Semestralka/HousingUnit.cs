@@ -49,8 +49,10 @@ namespace Database
         public void Add(Person person)
         {
             if (person != null) {
-                if (inhabitants.ContainsKey(person.personalData.IdentificationNumber))
-                inhabitants.Add(person.personalData.IdentificationNumber,person);
+                if (!inhabitants.ContainsKey(person.personalData.IdentificationNumber))
+                {
+                    inhabitants.Add(person.personalData.IdentificationNumber, person);
+                }
             }
         }
         public void Add(string firstName,string lastName, string identificationNumber)

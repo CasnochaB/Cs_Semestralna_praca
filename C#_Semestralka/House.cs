@@ -30,7 +30,7 @@ namespace Database
 
         public override IEnumerable<HousingUnit> GetHousingUnits()
         {
-            return (IEnumerable<HousingUnit>)housingUnit;
+            return new HousingUnit[] { housingUnit };
         }
 
         public override IEnumerable<Person> GetInhabitants()
