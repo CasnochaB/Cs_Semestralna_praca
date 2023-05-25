@@ -77,7 +77,10 @@ namespace Housing_Database_GUI
         private void RemoveHousing_button_Click(object sender, RoutedEventArgs e)
         {
             var housing = GetSelectedHousing();
-            database.Remove(housing);
+            if (housing != null)
+            {
+                database.Remove(housing);
+            }
             RemoveHousing_button.IsEnabled = false;
             HousingListReset();
         }
@@ -89,7 +92,9 @@ namespace Housing_Database_GUI
             var result = addHousingWindow.ShowDialog();
             if (result == true)
             {
+                database.Remove(housing);
                 housing.houseNumber = Int32.Parse(addHousingWindow.HouseNumber_TextBox.Text);
+                database.Add(housing);
             }
             HousingListReset();
         }
@@ -101,17 +106,46 @@ namespace Housing_Database_GUI
 
         private void AddHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            Flat housing = (Flat)GetSelectedHousing();
+            if (housing != null)
+            {
+                housing.Add();
+                HousingUnitsListReset();
+            }
         }
 
         private void RemoveHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
+            Flat housing = (Flat)GetSelectedHousing();
+            if (housing != null)
+            {
+                var unit = GetSelectedHousingUnit();
+                if (unit != null)
+                {
+                    housing.Remove(unit);
+                }
+            }
+            HousingUnitsListReset();
+        }
 
+        private void HousingUnitsListReset()
+        {
+            People_ListBox.UnselectAll();
+            HousingUnits_ListBox.UnselectAll(); 
+            var data = GetSelectedHousing().GetHousingUnits();
+            if (data != null)
+            {
+                HousingUnits_ListBox.ItemsSource = new ObservableCollection<HousingUnit>(data);
+            }
+            else
+            {
+                HousingUnits_ListBox.ItemsSource = new ObservableCollection<HousingUnit>();
+            }
         }
 
         private void EditHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO odstranit toto tlacitko
         }
 
         private void FilterHousingUnits_Button_Click(object sender, RoutedEventArgs e)
@@ -151,10 +185,13 @@ namespace Housing_Database_GUI
                 housingUnit.Remove(person);
             }
             RemovePerson_Button.IsEnabled = false;
+            PeopleListReset();
         }
 
         private void EditPerson_Button_Click(object sender, RoutedEventArgs e)
         {
+            //TODO odstranit
+
             var person = GetSelectedPerson();
             AddPersonWindow addPersonWindow = new AddPersonWindow(person);
             var result = addPersonWindow.ShowDialog();
@@ -170,11 +207,35 @@ namespace Housing_Database_GUI
 
         private void PeopleListReset()
         {
-            var housingUnit = GetSelectedHousingUnit();
-            if (housingUnit != null)
+            if (ignoreHousingUnits)
             {
-                People_ListBox.ItemsSource = GetSelectedHousingUnit().GetInhabitants();
+                var data = GetSelectedHousing().GetInhabitants();
+                if (data != null)
+                {
+                    People_ListBox.ItemsSource = new ObservableCollection<Person>(data);
+                }
+                else
+                {
+                    People_ListBox.ItemsSource = new ObservableCollection<Person>();
+                }
             }
+            else
+            {
+                var housingUnit = GetSelectedHousingUnit();
+                if (housingUnit != null)
+                {
+                    var data = housingUnit.GetInhabitants();
+                    if (data != null)
+                    {
+                        People_ListBox.ItemsSource = new ObservableCollection<Person>(data);
+                    }
+                    else
+                    {
+                        People_ListBox.ItemsSource = new ObservableCollection<Person>();
+                    }
+                }
+            }
+
         }
 
         private void FilterPeople_Button_Click(object sender, RoutedEventArgs e)
@@ -209,7 +270,7 @@ namespace Housing_Database_GUI
         private void HousingUnits_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ignoreHousingUnits)
-            { 
+            {
 
             }
             else
@@ -218,6 +279,10 @@ namespace Housing_Database_GUI
                 var housingUnit = GetSelectedHousingUnit();
                 if (housingUnit != null)
                 {
+                    if (GetSelectedHousing().GetType().Name == "House")
+                    {
+                        RemoveHousingUnits_Button.IsEnabled = false;
+                    }
                     People_ListBox.ItemsSource = housingUnit.GetInhabitants();
                 }
             }         
@@ -240,14 +305,11 @@ namespace Housing_Database_GUI
             }
             else
             {
-                if (housing != null)
-                {
-                    AddHousingUnits_Button.IsEnabled = true;
-                    FilterHousingUnits_Button.IsEnabled = true;
-                    HousingUnits_ListBox.ItemsSource = housing.GetHousingUnits();
-                    HousingUnits_ListBox.Items.Refresh();
-                }
+                AddHousingUnits_Button.IsEnabled = true;
+                FilterHousingUnits_Button.IsEnabled = true;
+                HousingUnits_ListBox.ItemsSource = housing.GetHousingUnits();
                 People_ListBox.ItemsSource = null;
+                HousingUnits_ListBox.Items.Refresh();      
             }
         }
 

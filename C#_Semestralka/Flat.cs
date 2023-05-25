@@ -109,6 +109,11 @@ namespace Database
             return housingUnits.Values.GetEnumerator();
         }
 
+        public void Remove(HousingUnit housingUnit)
+        {
+            housingUnits.Remove(housingUnit.unitOrder);
+        }
+
         public bool Contains(int housingID)
         {
             return housingUnits.ContainsKey(housingID);
