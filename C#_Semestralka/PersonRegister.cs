@@ -44,5 +44,10 @@ namespace Database
         public static int GetNumberOfPeople() {
             return people.Count;
         }
+
+        public static IEnumerable<Person> GetAll()
+        {
+            return people.Values;
+        }
     }
 }

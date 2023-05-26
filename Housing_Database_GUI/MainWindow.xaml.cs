@@ -54,13 +54,13 @@ namespace Housing_Database_GUI
                     MainFrame.Content = new HousingPage(housingDatabase);
                     break;
                 case 1:
-                    MainFrame.Content = new AdressPage(housingDatabase);
+                    MainFrame.Content = new AddressPage(housingDatabase);
                     break;
                 case 2:
                     MainFrame.Content = new PersonRegisterPage(housingDatabase);
                     break;
                 case 3:
-                    MainFrame.Content = new AdressPage(housingDatabase);
+                    MainFrame.Content = new AddressPage(housingDatabase);
                     break;
                 default:
                     MainFrame.Content = new HousingPage(housingDatabase);
