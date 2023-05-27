@@ -60,7 +60,7 @@ namespace Housing_Database_GUI
                     MainFrame.Content = new PersonRegisterPage(housingDatabase);
                     break;
                 case 3:
-                    MainFrame.Content = new AddressPage(housingDatabase);
+                    MainFrame.Content = new AdressExportPage(housingDatabase);
                     break;
                 default:
                     MainFrame.Content = new HousingPage(housingDatabase);
