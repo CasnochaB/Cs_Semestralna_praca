@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Database.Flat">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAFAAAAAAAABEAAABABAAAAAUBAAAgAAAAAABQAAA=</HashCode>
+      <FileName>Flat.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Database.House">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAFAAAAAAAABAAAABAAAAAAAUBAAAgAAAAAABAAAA=</HashCode>
+      <FileName>House.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Database.Housing">
+    <Position X="5.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEAAAAAAAABAAAABABAAAAAUBAABkCAAAAABAAAQ=</HashCode>
+      <FileName>Housing.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Database.HousingDatabase" BaseTypeListCollapsed="true">
+    <Position X="1" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEIAgIAAAAAAADACIAAABAEBABEAEAFEAACAAABQAAA=</HashCode>
+      <FileName>HousingDatabase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="Database.HousingUnit" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICGCAAEAAAABAAAAAABAgAAAEBAAAEAAAAAADAAAA=</HashCode>
+      <FileName>HousingUnit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.258" />
+  </Class>
+  <Class Name="Database.Person">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Database.Person.PersonalData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Person.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQABIBACAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Database.PersonRegister">
+    <Position X="13" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIQgAAAAAAAAABABAAABAAAAAAAAAAAAgAAAABQAAA=</HashCode>
+      <FileName>PersonRegister.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -34,7 +34,6 @@ namespace Database
             }
         }
 
-
         public DateTime birthDate
         {
             get

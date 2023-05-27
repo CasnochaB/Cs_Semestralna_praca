@@ -1,6 +1,8 @@
 ﻿using Database;
+using Housing_Database_GUI.HousingPageWindows;
 using Housing_Database_GUI.Managers;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -53,12 +55,6 @@ namespace Housing_Database_GUI
         {
             housingManager.EditHousing();
         }
-
-        private void FilterHousings_Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void AddHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
             housingUnitsManager.AddHousingUnit();
@@ -71,7 +67,7 @@ namespace Housing_Database_GUI
 
         private void FilterHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            housingUnitsManager.ApplyFilter();
         }
 
         private void AddPerson_Button_Click(object sender, RoutedEventArgs e)
@@ -91,7 +87,7 @@ namespace Housing_Database_GUI
 
         private void FilterPeople_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            peopleManager.FilterWindow();
         }
 
         public HousingUnit GetSelectedHousingUnit()
@@ -204,7 +200,7 @@ namespace Housing_Database_GUI
 
         private void InhabitantsFilter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            peopleManager.Filter();
+            peopleManager.ApplyFilter();
         }
     }
 }

@@ -44,13 +44,10 @@
                 <Button Name="RemoveHousing_button" Click="RemoveHousing_button_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Source="resources/minus.png"></Image>
                 </Button>
-                <Button Name="EditHousing_Button" Click="EditHousing_Button_Click"  Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/edit.png"></Image>
-                </Button>
-                <Button Name="FilterHousings_Button" Click="FilterHousings_Button_Click" Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/filter.png"></Image>
-                </Button>
-            </StackPanel>
+                    <Button Name="EditHousing_Button" Click="EditHousing_Button_Click"  Background="Transparent" BorderBrush="Transparent">
+                        <Image Source="resources/edit.png"></Image>
+                    </Button>
+                </StackPanel>
         </Grid>
     </GroupBox>
     <GroupBox Grid.Row="1" Grid.Column="1" Header="Units">

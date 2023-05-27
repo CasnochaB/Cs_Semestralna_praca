@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Housing_Database_GUI.FilterManager">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAABAAAAAAAAAABAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\FilterManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Housing_Database_GUI.AdressExportPage">
+    <Position X="0.5" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>AdressExportPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Housing_Database_GUI.AddressPage">
+    <Position X="0.5" Y="0.75" Width="2" />
+    <NestedTypes>
+      <Class Name="Housing_Database_GUI.AddressPage.AddressItem" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AdressPage.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Enum Name="Housing_Database_GUI.AddressPage.FilterPredicate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AdressPage.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABACAAABAAAAUQgAAAAAAAAAAAAQACgAAEAA=</HashCode>
+      <FileName>AdressPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Housing_Database_GUI.App" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Housing_Database_GUI.HousingPage" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAgEwgAABFIAABIgAAMAAACAACsgBgAAoSAAAAAgEA=</HashCode>
+      <FileName>HousingPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Housing_Database_GUI.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAgKAAgAAAAAAAAAIEABAAAAAEBAAARAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Housing_Database_GUI.PersonRegisterPage" BaseTypeListCollapsed="true">
+    <Position X="11" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgEAAABIAAAQAAAAAAAAgAgAAAAAAAAAEAA=</HashCode>
+      <FileName>PersonRegisterPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Housing_Database_GUI.AddWindows.AddHousingWindow" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAgAAJAAgAABAAAAAQAABAAA=</HashCode>
+      <FileName>HousingPageWindows\AddHousingWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Housing_Database_GUI.AddWindows.AddPersonWindow" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAARAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>HousingPageWindows\AddPersonWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Housing_Database_GUI.Managers.HousingPageHousingManager">
+    <Position X="5" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAkAAAgAAABAAAAEAAAAABAAAAAAAAAAQAAQAAA=</HashCode>
+      <FileName>Managers\HousingPageHousingManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Housing_Database_GUI.Managers.HousingPageHousingUnitsManager">
+    <Position X="9.5" Y="4.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQAQQAAA=</HashCode>
+      <FileName>Managers\HousingPageHousingUnitsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Housing_Database_GUI.Managers.HousingPagePeopleManager">
+    <Position X="12.75" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAQAAAAAFCAAAAAAAAAQAAQAEA=</HashCode>
+      <FileName>Managers\HousingPagePeopleManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

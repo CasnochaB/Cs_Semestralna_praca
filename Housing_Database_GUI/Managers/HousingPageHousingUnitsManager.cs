@@ -1,14 +1,18 @@
 ﻿using Database;
+using Housing_Database_GUI.HousingPageWindows;
+using System;
 
 namespace Housing_Database_GUI.Managers
 {
     internal class HousingPageHousingUnitsManager
     {
         private HousingPage housingPage;
+        Predicate<HousingUnit> numberOfInhabitantsPredicate;
 
         public HousingPageHousingUnitsManager(HousingPage housingPage)
         {
             this.housingPage = housingPage;
+            numberOfInhabitantsPredicate = housingUnit => true;
         }
 
         public void HousingUnitsListReset()
@@ -30,6 +34,7 @@ namespace Housing_Database_GUI.Managers
                 {
                     housingPage.HousingUnits_ListBox.Items.Add(item);
                 }
+                housingPage.HousingUnits_ListBox.Items.Filter = housingUnit => numberOfInhabitantsPredicate((HousingUnit)housingUnit);
                 housingPage.PeopleListReset();
             }
         }
@@ -83,6 +88,27 @@ namespace Housing_Database_GUI.Managers
                 }
             }
             housingPage.DisplayPeopleCount();
+        }
+
+        internal void ApplyFilter()
+        {
+            FilterHousingUnitsWindow window = new FilterHousingUnitsWindow();
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                int min = Int32.Parse(window.MinNumber_TextBox.Text);
+                int max = Int32.Parse(window.MaxNumber_TextBox.Text);
+                if (min == 0 && max == 0)
+                {
+                    numberOfInhabitantsPredicate = housingUnit => true;
+                }
+                else
+                {
+                    numberOfInhabitantsPredicate = new Predicate<HousingUnit>(n => n.numberOfInhabitants >= min && n.numberOfInhabitants <= max);
+                    housingPage.HousingUnits_ListBox.Items.Filter = housingUnit => numberOfInhabitantsPredicate((HousingUnit)housingUnit);
+                }
+                housingPage.PeopleListReset();
+            }
         }
     }
 }

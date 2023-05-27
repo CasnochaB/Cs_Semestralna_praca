@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HousingGenerators.HousingGenerator">
+    <Position X="5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAIRABAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>HousingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HousingGenerators.HousingUnitGenerator">
+    <Position X="7.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HousingUnitGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HousingGenerators.PersonGenerator">
+    <Position X="2.75" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACRDAAAAAAAAAAAAAAhAIAAAAABAACCAAAQAAAAEIAQ=</HashCode>
+      <FileName>PersonGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
