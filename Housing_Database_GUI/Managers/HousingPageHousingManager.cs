@@ -122,7 +122,7 @@ namespace Housing_Database_GUI.Managers
 
         private bool HouseNumberFilterPredicate(Object housing)
         {
-            return ((Housing)housing).houseNumber.ToString().StartsWith((housingPage.HousingIDFilter_TextBox.Text));
+            return ((Housing)housing).houseNumber.ToString().StartsWith(housingPage.HousingIDFilter_TextBox.Text);
         }
     }
 }

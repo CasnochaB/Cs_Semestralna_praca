@@ -1,8 +1,6 @@
 ﻿using Database;
-using Housing_Database_GUI.HousingPageWindows;
 using Housing_Database_GUI.Managers;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -16,7 +14,7 @@ namespace Housing_Database_GUI
     public partial class HousingPage : UserControl
     {
         public HousingDatabase database;
-        public bool ignoreHousingUnits = true;
+        public bool ignoreHousingUnits = false;
         public Object? lastSelectedObject = null;
         private HousingPageHousingManager housingManager;
         private HousingPageHousingUnitsManager housingUnitsManager;

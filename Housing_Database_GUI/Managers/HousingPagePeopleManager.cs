@@ -11,7 +11,7 @@ namespace Housing_Database_GUI.Managers
         private HousingPage housingPage;
         FilterManager filterManager;
         Predicate<Person> agePredicate;
-            
+
         public HousingPagePeopleManager(HousingPage housingPage)
         {
             this.housingPage = housingPage;
@@ -60,6 +60,10 @@ namespace Housing_Database_GUI.Managers
         {
             AddPersonWindow addPersonWindow = new AddPersonWindow();
             var housingUnit = housingPage.GetSelectedHousingUnit();
+            if (housingUnit == null)
+            {
+                return;
+            }
             var result = addPersonWindow.ShowDialog();
             if (result == true)
             {
