@@ -22,6 +22,7 @@ namespace Housing_Database_GUI
     public partial class AddressPage : UserControl
     {
         public HousingDatabase database;
+        private FilterManager filterManager;
         public class AddressItem
         {
             public Person Person { get; set; }
@@ -35,7 +36,7 @@ namespace Housing_Database_GUI
             public string Address { get; set; }
         }
 
-        private enum FilterPredicate
+        protected enum FilterPredicate
         {
             FirstName,
             LastName,
@@ -43,20 +44,19 @@ namespace Housing_Database_GUI
             Address
         }
 
-        public AddressPage()
+        public AddressPage() : this(new HousingDatabase())
         {
-            database = new HousingDatabase();
-            AddressListReset();
-            InitializeComponent();
         }
+
         public AddressPage(HousingDatabase housingDatabase)
         {
             InitializeComponent();
             database = housingDatabase;
             AddressListReset();
+            filterManager = new FilterManager();
         }
 
-        private void AddressListReset()
+        public virtual void AddressListReset()
         {
             foreach (var housing in database)
             {
@@ -71,53 +71,40 @@ namespace Housing_Database_GUI
             }
             Address_ListBox.Items.Filter = null;
             Address_ListBox.Items.Refresh();
+            DiplayPeopleCount();
         }
-
-        private bool FirstNameFilterPredicate(object item)
-        {
-            AddressItem addressItem = (AddressItem)item;
-            string filterText = Filter_TextBox.Text;
-            return addressItem.Person.personalData.FirstName.Contains(filterText);
-        }
-
-        private bool LastNameFilterPredicate(object item)
-        {
-            AddressItem addressItem = (AddressItem)item;
-            string filterText = Filter_TextBox.Text;
-            return addressItem.Person.personalData.LastName.Contains(filterText);
-        }
-        
-        private bool PersonIDFilterPredicate(object item)
-        {
-            AddressItem addressItem = (AddressItem)item;
-            string filterText = Filter_TextBox.Text;
-            return addressItem.Person.personalData.IdentificationNumber.Contains(filterText);
-        }
-
-        private bool AddressFilterPredicate(object item)
+          
+        protected bool AddressFilterPredicate(object item)
         {
             AddressItem addressItem = (AddressItem)item;
             string filterText = Filter_TextBox.Text;
             return addressItem.Address.Contains(filterText);
         }
 
-        private void ApplyFilter(FilterPredicate filterPredicate)
+        protected void ApplyFilter(FilterPredicate filterPredicate)
         {
+            var text = Filter_TextBox.Text;
             switch (filterPredicate)
             {
                 case FilterPredicate.FirstName:
-                    Address_ListBox.Items.Filter = FirstNameFilterPredicate; break;
+                    Address_ListBox.Items.Filter = item => { return filterManager.FirstNameFilterPredicate(((AddressItem)item).Person, text); }; break;
                 case FilterPredicate.LastName:
-                    Address_ListBox.Items.Filter = LastNameFilterPredicate; break;
+                    Address_ListBox.Items.Filter = item => { return filterManager.LastNameFilterPredicate(((AddressItem)item).Person, text); }; break;
                 case FilterPredicate.Address:
                     Address_ListBox.Items.Filter = AddressFilterPredicate; break;
                 case FilterPredicate.PersonID:
-                    Address_ListBox.Items.Filter = PersonIDFilterPredicate; break;
+                    Address_ListBox.Items.Filter = item => { return filterManager.PersonIDFilterPredicate(((AddressItem)item).Person, text); }; break;
             }
             Address_ListBox.Items.Refresh();
+            DiplayPeopleCount();
         }
 
-        private void AddToExport_Button_Click(object sender, RoutedEventArgs e)
+        public virtual void DiplayPeopleCount()
+        {
+            Count_Label.Content = Address_ListBox.Items.Count + "/" + database.GetNumberOfInstances();
+        }
+
+        protected void AddToExport_Button_Click(object sender, RoutedEventArgs e)
         {
             var addressItem = GetSelectedItem();
             if (addressItem != null)
@@ -126,7 +113,7 @@ namespace Housing_Database_GUI
             }
         }
 
-        private void ResetFilters_Button_Click(object sender, RoutedEventArgs e)
+        protected void ResetFilters_Button_Click(object sender, RoutedEventArgs e)
         {
             if (Filter_TextBox != null)
             {
@@ -134,7 +121,7 @@ namespace Housing_Database_GUI
             }
         }
 
-        private void FilterType_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected void FilterType_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Filter_TextBox != null)
             {
@@ -142,12 +129,12 @@ namespace Housing_Database_GUI
             }
         }
 
-        private AddressItem? GetSelectedItem()
+        protected AddressItem? GetSelectedItem()
         {
             return (AddressItem?)Address_ListBox.SelectedItem;
         }
 
-        private void Filter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        protected void Filter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             ApplyFilter((FilterPredicate)FilterType_ComboBox.SelectedIndex);
         }

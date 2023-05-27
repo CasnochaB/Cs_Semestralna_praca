@@ -2,6 +2,7 @@
 using Housing_Database_GUI.AddWindows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,35 +24,24 @@ namespace Housing_Database_GUI
     public partial class PersonRegisterPage : UserControl
     {
         private HousingDatabase database;
-        public PersonRegisterPage()
+        FilterManager filterManager;
+        public PersonRegisterPage() : this(new HousingDatabase())
         {
-            InitializeComponent();
-            SetWidth();
-            database = new HousingDatabase();
-            PeopleListReset();
         }
+
         public PersonRegisterPage(Database.HousingDatabase housingDatabase)
         {
             InitializeComponent();
-            SetWidth();
             database = housingDatabase;
+            filterManager = new FilterManager();
             PeopleListReset();
-        }
-
-        private void SetWidth()
-        {
-            var workingWidth = PersonRegister_ListBox.Width; //- SystemParameters.VerticalScrollBarWidth;
-            var col1 = 0.50;
-            var col2 = 0.20;
-            var col3 = 0.15;
-            Register_GridView.Columns[0].Width = col1 * workingWidth;
-            Register_GridView.Columns[1].Width = col2 * workingWidth;
-            Register_GridView.Columns[2].Width = col3 * workingWidth;
         }
 
         private void PeopleListReset()
         {
-            PersonRegister_ListBox.ItemsSource = PersonRegister.GetAll();
+            var data = PersonRegister.GetAll();
+            PersonRegister_ListBox.ItemsSource = new ObservableCollection<Person>(data);
+            Count_Label.Content = PersonRegister_ListBox.Items.Count + "/" + database.GetNumberOfInhabitants();
         }
 
         private void AddNewPerson_Button_Click(object sender, RoutedEventArgs e)
@@ -71,7 +61,8 @@ namespace Housing_Database_GUI
             if (person != null)
             {
                 PersonRegister.Remove(person);
-                PeopleListReset();
+                PersonRegister_ListBox.Items.Remove(person);
+                PersonRegister_ListBox.Items.Refresh();
             }
         }
 
@@ -79,5 +70,27 @@ namespace Housing_Database_GUI
         {
             return (Person)PersonRegister_ListBox.SelectedItem;
         }
+
+        private void FilterSelection_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Filter_TextBox is not null)
+            {
+                Filter_TextBox.Text = "";
+            }
+        }
+
+        private void Filter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {          
+            var text = Filter_TextBox.Text;
+            switch (FilterSelection_ComboBox.SelectedIndex)
+            {
+                case 0: PersonRegister_ListBox.Items.Filter = item => { return filterManager.FirstNameFilterPredicate((Person)item, text); }; break;
+                case 1: PersonRegister_ListBox.Items.Filter = item => { return filterManager.LastNameFilterPredicate((Person)item, text); }; break;
+                case 2: PersonRegister_ListBox.Items.Filter = item => { return filterManager.PersonIDFilterPredicate((Person)item, text); }; break;
+            }
+            Count_Label.Content = PersonRegister_ListBox.Items.Count + "/" + PersonRegister.count;
+        }
+
     }
+
 }

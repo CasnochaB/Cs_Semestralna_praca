@@ -54,7 +54,7 @@
                 <TextBox Name="Filter_TextBox" TextChanged="Filter_TextBox_TextChanged" Height="30" Margin="0,2,0,10"></TextBox>
                 <Button Name="ResetFilters_Button" Click="ResetFilters_Button_Click" Height="30" Margin="0,5">Reset filter</Button>
                 <Button Name="AddToExport_Button" Click="AddToExport_Button_Click" Height="30" Margin="0,5">Add to export</Button>
-                <Label HorizontalAlignment="Center" Margin="0,5"></Label>
+                <Label Name="Count_Label" HorizontalAlignment="Center" Margin="0,5">0/0</Label>
             </StackPanel>
         </GroupBox>
     </Grid>

@@ -45,7 +45,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <Label BorderBrush="Transparent" HorizontalAlignment="Center">filter:</Label>
-                    <ComboBox>
+                    <ComboBox Name="FilterSelection_ComboBox" SelectionChanged="FilterSelection_ComboBox_SelectionChanged">
                         <ComboBoxItem IsSelected="True">
                             First name
                         </ComboBoxItem>
@@ -56,9 +56,9 @@
                             Identification number
                         </ComboBoxItem>
                     </ComboBox>
-                    <TextBox Height="30" Margin="0,2,0,10"></TextBox>
+                    <TextBox Name="Filter_TextBox" TextChanged="Filter_TextBox_TextChanged" Height="30" Margin="0,2,0,10"></TextBox>
                     <Button Height="30" Margin="0,5">Reset filters</Button>
-                    <Label HorizontalAlignment="Center" Margin="0,5">0/2000</Label>
+                    <Label Name="Count_Label" HorizontalAlignment="Center" Margin="0,5">0/0</Label>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Grid.Row="1" HorizontalAlignment="Center">
                     <Button Name="AddNewPerson_Button" Click="AddNewPerson_Button_Click" Height="30" Margin="0,5">Add new person </Button>
