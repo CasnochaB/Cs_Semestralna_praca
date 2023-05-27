@@ -11,7 +11,7 @@ namespace Database
     public class HousingDatabase : IEnumerable<Housing>
     {
         private static int houseNumber = 0;
-        private Dictionary<(string personID, string address),Person> exportHousings = new Dictionary<(string, string), Person>();
+        public Dictionary<(string personID, string address),Person> exportHousings = new Dictionary<(string, string), Person>();
         
         public static int GetHouseNumber()
         {
@@ -58,9 +58,14 @@ namespace Database
             return housings.Values;
         }
 
-        public int GetNumberOfInhabitnts()
+        public int GetNumberOfInhabitants()
         {
             return housings.SelectMany(n => n.Value.GetInhabitants()).Distinct().Count();
+        }
+
+        public int GetNumberOfInstances()
+        {
+            return housings.SelectMany(n => n.Value.GetHousingUnits().SelectMany(m => m.GetInhabitants())).Count();
         }
 
         public void Save(FileInfo fileInfo)
@@ -123,7 +128,7 @@ namespace Database
                         } catch
                         {
                             collisions++;
-                            continue;
+                            person = PersonRegister.Get(id);
                         }
                         if (adressParts.Length == 2)
                         {
@@ -175,10 +180,12 @@ namespace Database
                 AddToExport(housingUnit);   
             }
         }
-        
-        public void AddToExport(Person person,string adress)
+
+        public void AddToExport(Person person, string address)
         {
-            exportHousings.Add((person.personalData.IdentificationNumber,adress),person);
+            if (!exportHousings.ContainsKey((person.personalData.IdentificationNumber, address))) { 
+            exportHousings.Add((person.personalData.IdentificationNumber, address), person);
+        }
         }
         
         public void AddToExport(HousingUnit housingUnit)

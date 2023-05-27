@@ -60,7 +60,7 @@ namespace Database
 
         public override IEnumerable<Person> Where(Func<Person, bool> predicate)
         {
-            throw new NotImplementedException();
+            return housingUnit.Where(predicate);
         }
 
         //public override IEnumerable<HousingUnit> Where(Func<HousingUnit, bool> predicate)
@@ -70,7 +70,10 @@ namespace Database
 
         public override IEnumerable<HousingUnit> Where(Predicate<HousingUnit> predicate)
         {
-            return predicate(housingUnit) ? (IEnumerable<HousingUnit>)housingUnit : Enumerable.Empty<HousingUnit>();
+            if (predicate(housingUnit))
+            {
+                yield return housingUnit;
+            }
         }
 
         public override IEnumerator<HousingUnit> GetEnumerator()
