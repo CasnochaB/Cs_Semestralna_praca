@@ -1,11 +1,6 @@
 ﻿using Database;
 using Housing_Database_GUI.AddWindows;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Housing_Database_GUI.Managers
 {
@@ -13,7 +8,7 @@ namespace Housing_Database_GUI.Managers
     {
         private HousingDatabase database;
         private HousingPage housingPage;
-        public HousingPageHousingManager(HousingDatabase housingDatabase,HousingPage housingPage)
+        public HousingPageHousingManager(HousingDatabase housingDatabase, HousingPage housingPage)
         {
             database = housingDatabase;
             this.housingPage = housingPage;
@@ -27,7 +22,7 @@ namespace Housing_Database_GUI.Managers
             {
                 foreach (var item in data)
                 {
-                    housingPage.Housings_Listbox.Items.Add(item);  
+                    housingPage.Housings_Listbox.Items.Add(item);
                 }
             }
             Filter();

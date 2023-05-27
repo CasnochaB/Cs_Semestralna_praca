@@ -1,10 +1,6 @@
 ﻿using Database;
-using Housing_Database_GUI.AddWindows;
 using Housing_Database_GUI.Managers;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -32,7 +28,7 @@ namespace Housing_Database_GUI
         {
             InitializeComponent();
             database = housingDatabase;
-            housingManager = new HousingPageHousingManager(database,this);
+            housingManager = new HousingPageHousingManager(database, this);
             housingUnitsManager = new HousingPageHousingUnitsManager(this);
             peopleManager = new HousingPagePeopleManager(this);
             HousingListReset();
@@ -72,10 +68,10 @@ namespace Housing_Database_GUI
         {
             housingUnitsManager.RemoveHousingUnit();
         }
-    
+
         private void FilterHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void AddPerson_Button_Click(object sender, RoutedEventArgs e)
@@ -106,7 +102,7 @@ namespace Housing_Database_GUI
 
         public Person GetSelectedPerson()
         {
-            var person = (Person)People_ListBox.SelectedItem; 
+            var person = (Person)People_ListBox.SelectedItem;
             return person;
         }
 
@@ -150,7 +146,7 @@ namespace Housing_Database_GUI
                         Person person = (Person)lastSelectedObject;
                         AddPersonToExport(person);
                         break;
-                    case "HousingUnit": 
+                    case "HousingUnit":
                         database.AddToExport((HousingUnit)lastSelectedObject); break;
                     default:
                         database.AddToExport((Housing)lastSelectedObject); break;

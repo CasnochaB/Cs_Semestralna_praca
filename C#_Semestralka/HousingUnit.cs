@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 
 namespace Database
 {
-    public class HousingUnit: IEnumerable<Person>
+    public class HousingUnit : IEnumerable<Person>
     {
-        private Dictionary<string,Person> inhabitants;
-        public int numberOfInhabitants { 
-            get 
+        private Dictionary<string, Person> inhabitants;
+        public int numberOfInhabitants
+        {
+            get
             {
-                return inhabitants.Count; 
-            } 
+                return inhabitants.Count;
+            }
         }
 
         public int unitOrder;
-        public string unitIdentifier {
-            get 
+        public string unitIdentifier
+        {
+            get
             {
-                return superiorHousing == null ? "Unknown" : superiorHousing.houseNumber.ToString()  + (unitOrder == 0 ? "" : "/" + unitOrder.ToString());    
+                return superiorHousing == null ? "Unknown" : superiorHousing.houseNumber.ToString() + (unitOrder == 0 ? "" : "/" + unitOrder.ToString());
             }
         }
 
@@ -33,29 +32,30 @@ namespace Database
 
         public void SetSuperiorHousing(Housing superiorHousing)
         {
-            this.superiorHousing = superiorHousing;          
+            this.superiorHousing = superiorHousing;
         }
 
         public HousingUnit(int unitIdentifier, Housing? superiorResidence = null)
         {
-            inhabitants = new Dictionary<string,Person>();
+            inhabitants = new Dictionary<string, Person>();
             this.unitOrder = unitIdentifier;
             this.superiorHousing = superiorResidence;
         }
 
         public HousingUnit(Housing? superiorHousing) : this(1, superiorHousing) { }
-        
+
 
         public void Add(Person person)
         {
-            if (person != null) {
+            if (person != null)
+            {
                 if (!inhabitants.ContainsKey(person.personalData.IdentificationNumber))
                 {
                     inhabitants.Add(person.personalData.IdentificationNumber, person);
                 }
             }
         }
-        public void Add(string firstName,string lastName, string identificationNumber)
+        public void Add(string firstName, string lastName, string identificationNumber)
         {
             Add(new Person(firstName, lastName, identificationNumber));
         }
@@ -65,7 +65,7 @@ namespace Database
             foreach (var person in people)
             {
                 Add(person);
-            }; 
+            };
         }
 
 
@@ -79,8 +79,9 @@ namespace Database
             return inhabitants.Remove(identificationNumber);
         }
 
-        public bool Remove(IEnumerable<Person> peopleToRemove) {
-            if (inhabitants.Values.All(n=> peopleToRemove.Contains(n)))
+        public bool Remove(IEnumerable<Person> peopleToRemove)
+        {
+            if (inhabitants.Values.All(n => peopleToRemove.Contains(n)))
             {
                 foreach (var person in peopleToRemove)
                 {
@@ -92,7 +93,7 @@ namespace Database
         }
 
         //public bool removeInhabitants(int lowSpan,int upSpan) {
-            
+
         //    if( lowSpan < 0 || upSpan < lowSpan || upSpan < numberOfInhabitants)
         //    {
         //        return false;
@@ -102,7 +103,7 @@ namespace Database
         //    return true;
         //}
 
-        public bool Remove(Func<Person,bool> match)
+        public bool Remove(Func<Person, bool> match)
         {
             var newItems = inhabitants.Values.Where(match);
             foreach (var item in newItems)

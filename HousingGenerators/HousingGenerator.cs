@@ -2,7 +2,7 @@
 
 namespace HousingGenerators
 {
- 
+
     public static class HousingGenerator
     {
 
@@ -29,12 +29,12 @@ namespace HousingGenerators
                 foreach (var item in HousingUnitGenerator.GenerateHousingUnits(numberOfHousingUnits, generateInhabitants))
                 {
                     flat.Add(item);
-                } 
+                }
             }
             return flat;
         }
 
-        public static IEnumerable<House> GenerateHouses(int count,bool generateInhabitants = false)
+        public static IEnumerable<House> GenerateHouses(int count, bool generateInhabitants = false)
         {
             for (int i = 0; i < count; i++)
             {
@@ -43,7 +43,7 @@ namespace HousingGenerators
             }
         }
 
-        public static IEnumerable<Flat> GenerateFlats(int count, int numberOfHousings = 6,bool generateHousing = false,bool generateInhabitants = false)
+        public static IEnumerable<Flat> GenerateFlats(int count, int numberOfHousings = 6, bool generateHousing = false, bool generateInhabitants = false)
         {
             for (int i = 0; i < count; i++)
             {

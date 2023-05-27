@@ -1,17 +1,6 @@
 ﻿using Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Housing_Database_GUI.AddWindows
 {
@@ -70,7 +59,8 @@ namespace Housing_Database_GUI.AddWindows
                 try
                 {
                     Person person = new Person(firstName, lastName, identificationNumber);
-                } catch { }
+                }
+                catch { }
                 return true;
             }
             CorrectionLabel.Content = "Zadajte meno a priezvisko pre osobu";
@@ -100,7 +90,8 @@ namespace Housing_Database_GUI.AddWindows
             if (!Person.CheckIDValidity(identificationNumber))
             {
                 CorrectionLabel.Content = "Rodné číslo nemá správny formát";
-            } else
+            }
+            else
             {
                 CorrectionLabel.Content = "";
                 NewPersonOK_Button.IsEnabled = true;

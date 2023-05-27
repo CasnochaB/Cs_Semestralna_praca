@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace Database
 {
@@ -31,14 +25,14 @@ namespace Database
                 }
             }
         }
-        public void SetHouseNumber(int houseNumber) { this.houseNumber = houseNumber;}
+        public void SetHouseNumber(int houseNumber) { this.houseNumber = houseNumber; }
 
         public abstract HousingUnit? GetHousingUnit(int? housingID = null);
         public bool Add(IEnumerable<Person> people, int housingID = 1)
         {
             foreach (var item in people)
             {
-                if (Add(item, housingID) == false) {  return false; }
+                if (Add(item, housingID) == false) { return false; }
             }
             return true;
         }
@@ -46,9 +40,9 @@ namespace Database
         public bool Add(Person person, int housingID = 1)
         {
             var housing = GetHousingUnit(housingID);
-            if (housing == null) 
+            if (housing == null)
             {
-                return false; 
+                return false;
             }
             housing.Add(person);
             return true;

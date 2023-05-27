@@ -1,23 +1,13 @@
 ﻿using Database;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Housing_Database_GUI
 {
     /// <summary>
-    /// Interaction logic for AdressPage.xaml
+    /// Interaction logic for AddressPage.xaml
     /// </summary>
     public partial class AddressPage : UserControl
     {
@@ -27,7 +17,7 @@ namespace Housing_Database_GUI
         {
             public Person Person { get; set; }
 
-            public AddressItem(Person person,string address)
+            public AddressItem(Person person, string address)
             {
                 Person = person;
                 Address = address;
@@ -64,7 +54,7 @@ namespace Housing_Database_GUI
                 {
                     foreach (var person in unit)
                     {
-                        AddressItem addressItem = new AddressItem(person,unit.unitIdentifier);
+                        AddressItem addressItem = new AddressItem(person, unit.unitIdentifier);
                         Address_ListBox.Items.Add(addressItem);
                     }
                 }
@@ -73,12 +63,12 @@ namespace Housing_Database_GUI
             Address_ListBox.Items.Refresh();
             DiplayPeopleCount();
         }
-          
+
         protected bool AddressFilterPredicate(object item)
         {
             AddressItem addressItem = (AddressItem)item;
             string filterText = Filter_TextBox.Text;
-            return addressItem.Address.Contains(filterText);
+            return addressItem.Address.StartsWith(filterText);
         }
 
         protected void ApplyFilter(FilterPredicate filterPredicate)
@@ -106,10 +96,14 @@ namespace Housing_Database_GUI
 
         protected void AddToExport_Button_Click(object sender, RoutedEventArgs e)
         {
-            var addressItem = GetSelectedItem();
-            if (addressItem != null)
+            var addressItems = GetSelectedItems();
+            if (addressItems == null) { return; }
+            foreach (var addressItem in addressItems)
             {
-                database.AddToExport(addressItem.Person,addressItem.Address);
+                if (addressItem != null)
+                {
+                    database.AddToExport(addressItem.Person, addressItem.Address);
+                }
             }
         }
 
@@ -129,9 +123,9 @@ namespace Housing_Database_GUI
             }
         }
 
-        protected AddressItem? GetSelectedItem()
+        protected IEnumerable<AddressItem> GetSelectedItems()
         {
-            return (AddressItem?)Address_ListBox.SelectedItem;
+            return Address_ListBox.SelectedItems.Cast<AddressItem>();
         }
 
         protected void Filter_TextBox_TextChanged(object sender, TextChangedEventArgs e)

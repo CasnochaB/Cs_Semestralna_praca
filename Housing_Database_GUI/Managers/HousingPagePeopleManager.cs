@@ -1,11 +1,6 @@
 ﻿using Database;
 using Housing_Database_GUI.AddWindows;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Housing_Database_GUI.Managers
 {
@@ -23,11 +18,11 @@ namespace Housing_Database_GUI.Managers
         public void PeopleListReset()
         {
             housingPage.People_ListBox.Items.Clear();
-            
+
             if (housingPage.ignoreHousingUnits)
             {
                 var housing = housingPage.GetSelectedHousing();
-                if (housing == null )
+                if (housing == null)
                 {
                     return;
                 }
@@ -108,7 +103,7 @@ namespace Housing_Database_GUI.Managers
 
         public void Filter()
         {
-            housingPage.People_ListBox.Items.Filter = item => filterManager.FullNameFilterPredicate((Person)item,housingPage.InhabitantsFilter_TextBox.Text);
+            housingPage.People_ListBox.Items.Filter = item => filterManager.FullNameFilterPredicate((Person)item, housingPage.InhabitantsFilter_TextBox.Text);
         }
 
     }

@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
+﻿using System.Collections;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Database
 {
     public class HousingDatabase : IEnumerable<Housing>
     {
         private static int houseNumber = 0;
-        public Dictionary<(string personID, string address),Person> exportHousings = new Dictionary<(string, string), Person>();
-        
+        public Dictionary<(string personID, string address), Person> exportHousings = new Dictionary<(string, string), Person>();
+
         public static int GetHouseNumber()
         {
             return houseNumber++;
         }
-        private Dictionary<int,Housing> housings;
+        private Dictionary<int, Housing> housings;
 
 
-        public HousingDatabase() {
+        public HousingDatabase()
+        {
             housings = new Dictionary<int, Housing>();
         }
 
@@ -42,11 +38,11 @@ namespace Database
 
         public bool Add(Housing housing)
         {
-            if (Contains(housing.houseNumber)) 
+            if (Contains(housing.houseNumber))
             {
-                return false; 
+                return false;
             }
-            housings.Add(housing.houseNumber,housing);
+            housings.Add(housing.houseNumber, housing);
             return true;
         }
         public bool Remove(Housing housing)
@@ -54,7 +50,8 @@ namespace Database
             return housings.Remove(housing.houseNumber);
         }
 
-        public IEnumerable<Housing> GetHousings() {
+        public IEnumerable<Housing> GetHousings()
+        {
             return housings.Values;
         }
 
@@ -70,7 +67,7 @@ namespace Database
 
         public void Save(FileInfo fileInfo)
         {
-            StreamWriter streamWriter = new StreamWriter(fileInfo.FullName,false,Encoding.UTF8);
+            StreamWriter streamWriter = new StreamWriter(fileInfo.FullName, false, Encoding.UTF8);
             foreach (var housing in housings)
             {
                 streamWriter.Flush();
@@ -78,7 +75,7 @@ namespace Database
                 {
                     foreach (var person in housingUnit)
                     {
-                        
+
                         WritePersonToFile(streamWriter, housingUnit.unitIdentifier, person);
                     }
                 }
@@ -125,7 +122,8 @@ namespace Database
                         try
                         {
                             person = new Person(firstName, lastName, id);
-                        } catch
+                        }
+                        catch
                         {
                             collisions++;
                             person = PersonRegister.Get(id);
@@ -143,7 +141,7 @@ namespace Database
                             flat = (Flat)housings[houseNumberInteger];
                             flat.Add(housingUnit);
                             housingUnit.Add(person);
-                        } 
+                        }
                         else
                         {
                             House house = new House(houseNumberInteger);
@@ -177,22 +175,23 @@ namespace Database
         {
             foreach (var housingUnit in housing)
             {
-                AddToExport(housingUnit);   
+                AddToExport(housingUnit);
             }
         }
 
         public void AddToExport(Person person, string address)
         {
-            if (!exportHousings.ContainsKey((person.personalData.IdentificationNumber, address))) { 
-            exportHousings.Add((person.personalData.IdentificationNumber, address), person);
+            if (!exportHousings.ContainsKey((person.personalData.IdentificationNumber, address)))
+            {
+                exportHousings.Add((person.personalData.IdentificationNumber, address), person);
+            }
         }
-        }
-        
+
         public void AddToExport(HousingUnit housingUnit)
         {
             foreach (var person in housingUnit)
             {
-                AddToExport(person,housingUnit.unitIdentifier);
+                AddToExport(person, housingUnit.unitIdentifier);
             }
         }
 
@@ -227,14 +226,14 @@ namespace Database
             return housings.ContainsKey(houseId);
         }
 
-        public IEnumerable<Housing> Where(Predicate<Housing> predicate) 
+        public IEnumerable<Housing> Where(Predicate<Housing> predicate)
         {
             return housings.Values.Where(housing => predicate(housing));
         }
 
         public IEnumerable<HousingUnit> Where(Func<HousingUnit, bool> predicate)
         {
-            return housings.Values.SelectMany(n=> n.Where(predicate));  
+            return housings.Values.SelectMany(n => n.Where(predicate));
         }
 
         public IEnumerable<Person> Where(Func<Person, bool> predicate)

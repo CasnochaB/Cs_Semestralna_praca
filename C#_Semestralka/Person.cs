@@ -19,21 +19,24 @@ namespace Database
         }
 
         public PersonalData personalData { get; set; }
-        public int age { 
-            get 
-            {  
-                return new DateTime(DateTime.Today.Ticks - birthDate.Ticks).Year; 
-            } 
+        public int age
+        {
+            get
+            {
+                return new DateTime(DateTime.Today.Ticks - birthDate.Ticks).Year;
+            }
         }
-        public string fullName {
-            get 
+        public string fullName
+        {
+            get
             {
                 return personalData.FirstName + " " + personalData.LastName;
             }
         }
 
 
-        public DateTime birthDate {
+        public DateTime birthDate
+        {
             get
             {
                 return GetBirthDate(personalData.IdentificationNumber);
@@ -44,7 +47,7 @@ namespace Database
         {
             int year = 2000 + Int32.Parse(identificationNumber.Substring(0, 2));
             return new DateTime(
-                year < DateTime.Today.Year + 1 ? year : year-100,
+                year < DateTime.Today.Year + 1 ? year : year - 100,
                 int.Parse(identificationNumber.Substring(2, 2)),
                 int.Parse(identificationNumber.Substring(4, 2)));
         }
@@ -59,14 +62,15 @@ namespace Database
             {
                 throw new ArgumentException("Identification number is invalid");
             }
-            personalData = new PersonalData(firstName,lastName,identificationNumber);
+            personalData = new PersonalData(firstName, lastName, identificationNumber);
             PersonRegister.Add(this);
         }
 
         public static bool CheckIDValidity(string identificationNumber)
         {
             string[] parts = identificationNumber.Split("/");
-            if (parts.Length != 2) { 
+            if (parts.Length != 2)
+            {
                 return false;
             }
             if (parts[0].Length != 6) { return false; }

@@ -1,13 +1,4 @@
 ﻿using Database;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HousingGenerators
 {
@@ -38,7 +29,7 @@ namespace HousingGenerators
                     uniqueID = 0;
                 }
                 secondPart = uniqueID.ToString("D4");
-                id = firstPart + "/" + secondPart; 
+                id = firstPart + "/" + secondPart;
             }
             return id;
         }
@@ -47,7 +38,8 @@ namespace HousingGenerators
             if (isMale)
             {
                 return maleFirstNames[random.Next(10)];
-            } else
+            }
+            else
             {
                 return femaleFirstNames[random.Next(10)];
             }
@@ -57,7 +49,8 @@ namespace HousingGenerators
             if (isMale)
             {
                 return maleLastNames[random.Next(10)];
-            } else
+            }
+            else
             {
                 return femaleLastNames[random.Next(10)];
             }
@@ -74,7 +67,7 @@ namespace HousingGenerators
             return randomDate;
         }
 
-        public static Person GeneratePerson(string firstName,string lastName) 
+        public static Person GeneratePerson(string firstName, string lastName)
         {
             string temp = GetUniqueID();
             Person person;
@@ -93,7 +86,8 @@ namespace HousingGenerators
             return random.Next(2) == 0;
         }
 
-        public static IEnumerable<Person> GeneratePeople(int count) {
+        public static IEnumerable<Person> GeneratePeople(int count)
+        {
             for (int i = 0; i < count; i++)
             {
                 yield return GeneratePerson();
@@ -102,7 +96,7 @@ namespace HousingGenerators
 
         public static IEnumerable<Person> GeneratePeople()
         {
-            int count = random.Next(lowerCountSpan,upperCountSpan+1);
+            int count = random.Next(lowerCountSpan, upperCountSpan + 1);
             for (int i = 0; i < count; i++)
             {
                 yield return GeneratePerson();

@@ -1,22 +1,10 @@
 ﻿using Database;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Housing_Database_GUI
 {
@@ -31,10 +19,10 @@ namespace Housing_Database_GUI
         public MainWindow()
         {
             housingDatabase = new HousingDatabase();
-            housingDatabase.Load(new FileInfo("C:\\Users\\brano\\OneDrive\\Dokumenty\\!CSharp\\Semestralna_praca\\C#_Semestralka\\sample.csv"));
+            //housingDatabase.Load(new FileInfo("C:\\Users\\brano\\OneDrive\\Dokumenty\\!CSharp\\Semestralna_praca\\C#_Semestralka\\sample.csv"));
             MainFrame = new Frame();
             MainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            
+
             InitializeComponent();
 
             MainFrame.Content = new HousingPage(housingDatabase);
@@ -96,12 +84,13 @@ namespace Housing_Database_GUI
             }
         }
 
-        private void NewFile_Click(object sender, RoutedEventArgs e) 
+        private void NewFile_Click(object sender, RoutedEventArgs e)
         {
             if (housingDatabase.Count() == 0 && PersonRegister.count == 0)
             {
                 //nothing happens
-            } else
+            }
+            else
             {
                 var result = MessageBox.Show("Are you sure you want to create new database?", "New housing database", MessageBoxButton.OKCancel);
                 if (result == MessageBoxResult.OK)

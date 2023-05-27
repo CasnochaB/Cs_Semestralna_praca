@@ -16,14 +16,14 @@ namespace Housing_Database_GUI.AddWindows
         private readonly Regex numberOnlyRegex = new Regex("[^0-9]+");
         public HousingDatabase housingDatabase;
         private int houseNumber = -1;
-        
+
         public AddHousingWindow()
         {
             housingDatabase = new HousingDatabase();
             InitializeComponent();
         }
 
-        public AddHousingWindow(int houseNumber,HousingDatabase database)
+        public AddHousingWindow(int houseNumber, HousingDatabase database)
         {
             InitializeComponent();
             housingDatabase = database;

@@ -4,7 +4,7 @@ namespace HousingGenerators
 {
     public static class HousingUnitGenerator
     {
-        public static HousingUnit GenerateHousingUnit(Housing? superior,bool generateInhabitants = false)
+        public static HousingUnit GenerateHousingUnit(Housing? superior, bool generateInhabitants = false)
         {
             HousingUnit housingUnit = new HousingUnit(superior);
             if (generateInhabitants)
@@ -16,7 +16,7 @@ namespace HousingGenerators
 
         public static HousingUnit GenerateHousingUnit(bool generateInhabitants = false)
         {
-            return GenerateHousingUnit(null,generateInhabitants);
+            return GenerateHousingUnit(null, generateInhabitants);
         }
 
         public static IEnumerable<HousingUnit> GenerateHousingUnits(int count, bool generateInhabitants = false)

@@ -1,15 +1,11 @@
 ﻿using Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Housing_Database_GUI
 {
     internal class AdressExportPage : AddressPage
     {
-        public AdressExportPage(HousingDatabase database) : base(database) {
+        public AdressExportPage(HousingDatabase database) : base(database)
+        {
             AddToExport_Button.Visibility = System.Windows.Visibility.Hidden;
         }
 

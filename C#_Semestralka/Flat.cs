@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Database
+﻿namespace Database
 {
 
 
-    public class Flat : Housing,IEnumerable<HousingUnit>
+    public class Flat : Housing, IEnumerable<HousingUnit>
     {
-        private Dictionary<int,HousingUnit> housingUnits;
+        private Dictionary<int, HousingUnit> housingUnits;
         private int currentHousingUnitID = 1;
 
         public override int numberOfInhabitants => housingUnits.SelectMany(unit => unit.Value.GetInhabitants()).Distinct().Count();
 
         public override int numberOfHousingUnits => housingUnits.Count;
 
-        public Flat(int houseNumber,int housingUnitsCount = 0) : base(houseNumber) {
+        public Flat(int houseNumber, int housingUnitsCount = 0) : base(houseNumber)
+        {
             housingUnits = new Dictionary<int, HousingUnit>();
-            for (int i = 0;i < housingUnitsCount;i++)
+            for (int i = 0; i < housingUnitsCount; i++)
             {
                 Add();
             }
@@ -66,7 +60,7 @@ namespace Database
             {
                 housingUnit.unitOrder = currentHousingUnitID++;
             }
-            housingUnits.Add(housingUnit.unitOrder,housingUnit);
+            housingUnits.Add(housingUnit.unitOrder, housingUnit);
             return true;
         }
 
@@ -86,7 +80,7 @@ namespace Database
 
         public override IEnumerable<Person> Where(Predicate<Person> predicate)
         {
-            return housingUnits.Values.SelectMany(n=> n.Where(predicate));
+            return housingUnits.Values.SelectMany(n => n.Where(predicate));
         }
 
         public override IEnumerable<Person> Where(Func<Person, bool> predicate)
@@ -101,7 +95,7 @@ namespace Database
 
         public override IEnumerable<HousingUnit> Where(Predicate<HousingUnit> predicate)
         {
-            return housingUnits.Values.Where(n=> predicate(n));
+            return housingUnits.Values.Where(n => predicate(n));
         }
 
         public override IEnumerator<HousingUnit> GetEnumerator()
