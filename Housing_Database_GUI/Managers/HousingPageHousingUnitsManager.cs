@@ -10,28 +10,33 @@ namespace Housing_Database_GUI.Managers
 {
     internal class HousingPageHousingUnitsManager
     {
-
-        private HousingDatabase database;
         private HousingPage housingPage;
 
-        public HousingPageHousingUnitsManager(HousingDatabase housingDatabase, HousingPage housingPage)
+        public HousingPageHousingUnitsManager(HousingPage housingPage)
         {
-            database = housingDatabase;
             this.housingPage = housingPage;
         }
 
         public void HousingUnitsListReset()
         {
-            housingPage.People_ListBox.UnselectAll();
-            housingPage.HousingUnits_ListBox.UnselectAll();
+            housingPage.HousingUnits_ListBox.Items.Clear();
+            if (housingPage.ignoreHousingUnits)
+            {
+                return;
+            }
+            var housing = housingPage.GetSelectedHousing();
+            if (housing == null)
+            {
+                return;
+            }
             var data = housingPage.GetSelectedHousing().GetHousingUnits();
             if (data != null)
             {
-                housingPage.HousingUnits_ListBox.ItemsSource = new ObservableCollection<HousingUnit>(data);
-            }
-            else
-            {
-                housingPage.HousingUnits_ListBox.ItemsSource = new ObservableCollection<HousingUnit>();
+                foreach (var item in data)
+                {
+                    housingPage.HousingUnits_ListBox.Items.Add(item);
+                }
+                housingPage.PeopleListReset();
             }
         }
 
@@ -43,7 +48,7 @@ namespace Housing_Database_GUI.Managers
                 if (housing != null)
                 {
                     housing.Add();
-                    HousingUnitsListReset();
+                    housingPage.HousingUnits_ListBox.Items.Add(housing);
                 }
             }
         }
@@ -57,9 +62,10 @@ namespace Housing_Database_GUI.Managers
                 if (unit != null)
                 {
                     housing.Remove(unit);
+                    housingPage.HousingUnits_ListBox.Items.Remove(unit);
+                    housingPage.PeopleListReset();
                 }
             }
-            HousingUnitsListReset();
         }
 
         public void SelectionChanged()
@@ -79,7 +85,7 @@ namespace Housing_Database_GUI.Managers
                     {
                         housingPage.RemoveHousingUnits_Button.IsEnabled = false;
                     }
-                    housingPage.People_ListBox.ItemsSource = housingUnit.GetInhabitants();
+                    housingPage.PeopleListReset();
                 }
             }
             housingPage.DisplayPeopleCount();

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -31,10 +32,10 @@ namespace Housing_Database_GUI
         {
             InitializeComponent();
             database = housingDatabase;
-            HousingListReset();
             housingManager = new HousingPageHousingManager(database,this);
-            housingUnitsManager = new HousingPageHousingUnitsManager(database,this);
-            peopleManager = new HousingPagePeopleManager(database, this);
+            housingUnitsManager = new HousingPageHousingUnitsManager(this);
+            peopleManager = new HousingPagePeopleManager(this);
+            HousingListReset();
         }
 
         private void HousingListReset()
@@ -117,7 +118,7 @@ namespace Housing_Database_GUI
 
         private void People_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            housingManager.SelectionChanged();
+            peopleManager.SelectionChanged();
         }
 
         private void HousingUnits_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -125,7 +126,7 @@ namespace Housing_Database_GUI
             housingUnitsManager.SelectionChanged();
         }
 
-        private void Housings_Listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Housings_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             housingManager.SelectionChanged();
         }
@@ -134,6 +135,7 @@ namespace Housing_Database_GUI
         {
             ignoreHousingUnits = !ignoreHousingUnits;
             int housingIndex = Housings_Listbox.SelectedIndex;
+            HousingUnitsListReset();
             HousingListReset();
             Housings_Listbox.SelectedIndex = housingIndex;
         }
@@ -177,6 +179,36 @@ namespace Housing_Database_GUI
                     database.AddToExport(person, address);
                 }
             }
+        }
+
+        internal void PeopleListReset()
+        {
+            peopleManager.PeopleListReset();
+        }
+
+        internal void HousingUnitsListReset()
+        {
+            housingUnitsManager.HousingUnitsListReset();
+        }
+
+        private void HousingIDFilter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            housingManager.Filter();
+        }
+
+        private void HousingIDFilter_TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            string newText = HousingIDFilter_TextBox.Text + e.Text;
+            Regex regex = new Regex("[^0-9]+");
+            if (regex.IsMatch(newText))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void InhabitantsFilter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            peopleManager.Filter();
         }
     }
 }

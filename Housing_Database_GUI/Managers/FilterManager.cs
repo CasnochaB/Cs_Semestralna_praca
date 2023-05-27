@@ -23,5 +23,9 @@ namespace Housing_Database_GUI
             return person.personalData.FirstName.Contains(filterText);
         }
 
+        public bool FullNameFilterPredicate( Person person,string filterText)
+        {
+            return person.fullName.Contains(filterText);
+        }
     }
 }

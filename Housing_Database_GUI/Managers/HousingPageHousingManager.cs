@@ -21,22 +21,16 @@ namespace Housing_Database_GUI.Managers
 
         public void HousingListReset()
         {
-            housingPage.People_ListBox.UnselectAll();
-            housingPage.People_ListBox.ItemsSource = null;
-            housingPage.HousingUnits_ListBox.UnselectAll();
-            housingPage.HousingUnits_ListBox.ItemsSource = null;
-            housingPage.Housings_Listbox.UnselectAll();
-            housingPage.Housings_Listbox.Items.Refresh();
+            housingPage.Housings_Listbox.Items.Clear();
             var data = database.GetHousings();
             if (data != null)
             {
-                housingPage.Housings_Listbox.ItemsSource = new ObservableCollection<Housing>(data);
+                foreach (var item in data)
+                {
+                    housingPage.Housings_Listbox.Items.Add(item);  
+                }
             }
-            else
-            {
-                housingPage.Housings_Listbox.ItemsSource = new ObservableCollection<Housing>();
-            }
-            housingPage.Housings_Listbox.Items.Refresh();
+            Filter();
             housingPage.DisplayPeopleCount();
         }
 
@@ -52,15 +46,16 @@ namespace Housing_Database_GUI.Managers
                 {
                     House house = new House(houseNumber);
                     database.Add(house);
+                    housingPage.Housings_Listbox.Items.Add(house);
                 }
                 else
                 {
                     int housingUnitsCount = Int32.Parse(addHousingWindow.UnitsNumber_TextBox.Text);
                     Flat flat = new Flat(houseNumber, housingUnitsCount);
                     database.Add(flat);
+                    housingPage.Housings_Listbox.Items.Add(flat);
                 }
             }
-            HousingListReset();
         }
 
         public void RemoveHousing()
@@ -69,9 +64,11 @@ namespace Housing_Database_GUI.Managers
             if (housing != null)
             {
                 database.Remove(housing);
+                housingPage.Housings_Listbox.Items.Remove(housing);
+                housingPage.HousingUnitsListReset();
+                housingPage.PeopleListReset();
             }
             housingPage.RemoveHousing_button.IsEnabled = false;
-            HousingListReset();
         }
 
         public void EditHousing()
@@ -99,21 +96,38 @@ namespace Housing_Database_GUI.Managers
             housingPage.lastSelectedObject = housing;
             if (housingPage.ignoreHousingUnits)
             {
-                housingPage.HousingUnits_ListBox.ItemsSource = null;
                 housingPage.AddHousingUnits_Button.IsEnabled = false;
                 housingPage.RemoveHousingUnits_Button.IsEnabled = false;
                 housingPage.FilterHousingUnits_Button.IsEnabled = false;
-                housingPage.People_ListBox.ItemsSource = housing.GetInhabitants();
+                housingPage.PeopleListReset();
             }
             else
             {
                 housingPage.AddHousingUnits_Button.IsEnabled = true;
                 housingPage.FilterHousingUnits_Button.IsEnabled = true;
-                housingPage.HousingUnits_ListBox.ItemsSource = housing.GetHousingUnits();
-                housingPage.People_ListBox.ItemsSource = null;
                 housingPage.HousingUnits_ListBox.Items.Refresh();
+                housingPage.HousingUnitsListReset();
             }
             housingPage.DisplayPeopleCount();
+        }
+
+        internal void Filter()
+        {
+            if (housingPage.HousingIDFilter_TextBox.Text.Length == 0)
+            {
+                housingPage.Housings_Listbox.Items.Filter = null;
+                housingPage.HousingUnitsListReset();
+                housingPage.PeopleListReset();
+                return;
+            }
+            housingPage.Housings_Listbox.Items.Filter = HouseNumberFilterPredicate;
+            housingPage.HousingUnitsListReset();
+            housingPage.PeopleListReset();
+        }
+
+        private bool HouseNumberFilterPredicate(Object housing)
+        {
+            return ((Housing)housing).houseNumber.ToString().StartsWith((housingPage.HousingIDFilter_TextBox.Text));
         }
     }
 }

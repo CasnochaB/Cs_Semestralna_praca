@@ -1,18 +1,9 @@
 ﻿using Database;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Housing_Database_GUI.AddWindows
 {
@@ -24,6 +15,7 @@ namespace Housing_Database_GUI.AddWindows
 
         private readonly Regex numberOnlyRegex = new Regex("[^0-9]+");
         public HousingDatabase housingDatabase;
+        private int houseNumber = -1;
         
         public AddHousingWindow()
         {
@@ -35,6 +27,7 @@ namespace Housing_Database_GUI.AddWindows
         {
             InitializeComponent();
             housingDatabase = database;
+            this.houseNumber = houseNumber;
             HouseNumber_TextBox.Text = houseNumber.ToString();
         }
 
@@ -93,8 +86,15 @@ namespace Housing_Database_GUI.AddWindows
             {
                 if (HouseNumber_TextBox.Text.Length > 0)
                 {
-                    if (housingDatabase.Contains(Int32.Parse(HouseNumber_TextBox.Text)))
+                    int newHouseNumber = Int32.Parse(HouseNumber_TextBox.Text);
+                    if (housingDatabase.Contains(newHouseNumber))
                     {
+                        if (newHouseNumber == houseNumber)
+                        {
+                            NewHousingOK_Button.IsEnabled = true;
+                            CorrectionCheck_Label.Content = "";
+                            return;
+                        }
                         NewHousingOK_Button.IsEnabled = false;
                         CorrectionCheck_Label.Content = "Číslo domu už existuje";
                     }
@@ -105,7 +105,7 @@ namespace Housing_Database_GUI.AddWindows
                 }
                 else
                 {
-                    CorrectionCheck_Label.Content = "Nieje zadané číslo domu";
+                    CorrectionCheck_Label.Content = "Nie je zadané číslo domu";
                 }
             }
         }

@@ -11,28 +11,28 @@ namespace Housing_Database_GUI.Managers
 {
     internal class HousingPagePeopleManager
     {
-        private HousingDatabase database;
         private HousingPage housingPage;
+        FilterManager filterManager;
 
-        public HousingPagePeopleManager(HousingDatabase housingDatabase, HousingPage housingPage)
+        public HousingPagePeopleManager(HousingPage housingPage)
         {
-            database = housingDatabase;
             this.housingPage = housingPage;
+            filterManager = new FilterManager();
         }
 
         public void PeopleListReset()
         {
+            housingPage.People_ListBox.Items.Clear();
+            
             if (housingPage.ignoreHousingUnits)
             {
+                var housing = housingPage.GetSelectedHousing();
+                if (housing == null )
+                {
+                    return;
+                }
                 var data = housingPage.GetSelectedHousing().GetInhabitants();
-                if (data != null)
-                {
-                    housingPage.People_ListBox.ItemsSource = new ObservableCollection<Person>(data);
-                }
-                else
-                {
-                    housingPage.People_ListBox.ItemsSource = new ObservableCollection<Person>();
-                }
+                AddPeopleToListBox(data);
             }
             else
             {
@@ -40,17 +40,21 @@ namespace Housing_Database_GUI.Managers
                 if (housingUnit != null)
                 {
                     var data = housingUnit.GetInhabitants();
-                    if (data != null)
-                    {
-                        housingPage.People_ListBox.ItemsSource = new ObservableCollection<Person>(data);
-                    }
-                }
-                else
-                {
-                    housingPage.People_ListBox.ItemsSource = new ObservableCollection<Person>();
+                    AddPeopleToListBox(data);
                 }
             }
             housingPage.DisplayPeopleCount();
+        }
+
+        private void AddPeopleToListBox(IEnumerable<Person> data)
+        {
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    housingPage.People_ListBox.Items.Add(item);
+                }
+            }
         }
 
         public void AddPerson()
@@ -63,6 +67,7 @@ namespace Housing_Database_GUI.Managers
                 string identificationNumber = addPersonWindow.IdentificationNumber_TextBox.Text;
                 Person person = PersonRegister.Get(identificationNumber);
                 housingUnit.Add(person);
+                housingPage.People_ListBox.Items.Add(person);
                 housingPage.DisplayPeopleCount();
             }
         }
@@ -79,14 +84,15 @@ namespace Housing_Database_GUI.Managers
             {
                 var housing = housingPage.GetSelectedHousing();
                 housing.Remove(person);
+                housingPage.People_ListBox.Items.Remove(person);
             }
             else
             {
                 var housingUnit = housingPage.GetSelectedHousingUnit();
                 housingUnit.Remove(person);
+                housingPage.People_ListBox.Items.Remove(person);
             }
             housingPage.RemovePerson_Button.IsEnabled = false;
-            PeopleListReset();
         }
 
         public void SelectionChanged()
@@ -98,6 +104,11 @@ namespace Housing_Database_GUI.Managers
             {
                 housingPage.lastSelectedObject = person;
             }
+        }
+
+        public void Filter()
+        {
+            housingPage.People_ListBox.Items.Filter = item => filterManager.FullNameFilterPredicate((Person)item,housingPage.InhabitantsFilter_TextBox.Text);
         }
 
     }
