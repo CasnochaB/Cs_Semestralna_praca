@@ -22,13 +22,15 @@
                 <MenuItem Click="ExportFile_Click" Header="Export"></MenuItem>
                 <MenuItem Click="ImportFile_Click" Header="Import"></MenuItem>
                 <Separator></Separator>
+                <MenuItem Header="Statistics" Click="Statistics_Click"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Click="ExitWindow" Header="_Exit"/>
             </MenuItem>
         </Menu>
         
         <ComboBox Grid.Row="1" Name="PageSelector_ComboBox" SelectionChanged="PageSelector_ComboBox_SelectionChanged" FontSize="40">
             <ComboBoxItem IsSelected="True">Housings list</ComboBoxItem>
-            <ComboBoxItem>Adress list</ComboBoxItem>
+            <ComboBoxItem>Address list</ComboBoxItem>
             <ComboBoxItem>Person register</ComboBoxItem>
             <ComboBoxItem>Export preview</ComboBoxItem>
         </ComboBox>

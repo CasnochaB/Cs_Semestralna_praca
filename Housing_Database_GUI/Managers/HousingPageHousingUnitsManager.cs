@@ -41,14 +41,15 @@ namespace Housing_Database_GUI.Managers
 
         public void AddHousingUnit()
         {
+            var housing = housingPage.GetSelectedHousing();
+            if (housing == null)
+            {
+                return;
+            }
             if (housingPage.GetSelectedHousing().GetType().Name == "Flat")
             {
-                Flat housing = (Flat)housingPage.GetSelectedHousing();
-                if (housing != null)
-                {
-                    housing.Add();
-                    housingPage.HousingUnits_ListBox.Items.Add(housing);
-                }
+                ((Flat)housing).Add();
+                housingPage.HousingUnits_ListBox.Items.Add(housing);            
             }
         }
 

@@ -3,6 +3,7 @@ using Housing_Database_GUI.AddWindows;
 using Housing_Database_GUI.HousingPageWindows;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Housing_Database_GUI.Managers
 {
@@ -69,9 +70,12 @@ namespace Housing_Database_GUI.Managers
             {
                 string identificationNumber = addPersonWindow.IdentificationNumber_TextBox.Text;
                 Person person = PersonRegister.Get(identificationNumber);
-                housingUnit.Add(person);
-                housingPage.People_ListBox.Items.Add(person);
-                housingPage.DisplayPeopleCount();
+                if (!housingUnit.Contains(person))
+                {
+                    housingUnit.Add(person);
+                    housingPage.People_ListBox.Items.Add(person);
+                    housingPage.DisplayPeopleCount();
+                }
             }
         }
 

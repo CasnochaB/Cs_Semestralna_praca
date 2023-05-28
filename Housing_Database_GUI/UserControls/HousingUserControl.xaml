@@ -39,13 +39,13 @@
             <TextBox Name="HousingIDFilter_TextBox" TextChanged="HousingIDFilter_TextBox_TextChanged" PreviewTextInput="HousingIDFilter_TextBox_PreviewTextInput" Grid.Column="0" VerticalAlignment="Center" Height="20"/>
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
                 <Button Name="AddHousing_Button" Click="AddHousing_Button_Click" Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/plus.png"/>
+                    <Image Source="/resources/plus.png"/>
                 </Button>
                 <Button Name="RemoveHousing_button" Click="RemoveHousing_button_Click" Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/minus.png"></Image>
+                    <Image Source="/resources/minus.png"></Image>
                 </Button>
                     <Button Name="EditHousing_Button" Click="EditHousing_Button_Click"  Background="Transparent" BorderBrush="Transparent">
-                        <Image Source="resources/edit.png"></Image>
+                        <Image Source="/resources/edit.png"></Image>
                     </Button>
                 </StackPanel>
         </Grid>
@@ -70,13 +70,13 @@
 
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
                 <Button Name="AddHousingUnits_Button" Click="AddHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/plus.png"/>
+                    <Image Source="/resources/plus.png"/>
                 </Button>
                     <Button Name="RemoveHousingUnits_Button" Click="RemoveHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
-                        <Image Source="resources/minus.png"></Image>
+                        <Image Source="/resources/minus.png"></Image>
                     </Button>
                     <Button Name="FilterHousingUnits_Button" Click="FilterHousingUnits_Button_Click" Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/filter.png"></Image>
+                    <Image Source="/resources/filter.png"></Image>
                 </Button>
             </StackPanel>
         </Grid>
@@ -102,13 +102,13 @@
             <TextBox Name="InhabitantsFilter_TextBox" TextChanged="InhabitantsFilter_TextBox_TextChanged" Grid.Column="0" VerticalAlignment="Center" Height="20"/>
             <StackPanel Orientation="Horizontal" Background="White" Grid.Column="1" HorizontalAlignment="Right">
                 <Button Name="AddPerson_Button" Click="AddPerson_Button_Click" Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/plus.png"/>
+                    <Image Source="/resources/plus.png"/>
                 </Button>
                     <Button Name="RemovePerson_Button" Click="RemovePerson_Button_Click" Background="Transparent" BorderBrush="Transparent">
-                        <Image Source="resources/minus.png"></Image>
+                        <Image Source="/resources/minus.png"></Image>
                     </Button>
                     <Button Name="FilterPeople_Button" Click="FilterPeople_Button_Click"  Background="Transparent" BorderBrush="Transparent">
-                    <Image Source="resources/filter.png"></Image>
+                    <Image Source="/resources/filter.png"></Image>
                 </Button>
             </StackPanel>
         </Grid>

@@ -23,7 +23,15 @@ namespace Database
         {
             get
             {
-                return new DateTime(DateTime.Today.Ticks - birthDate.Ticks).Year;
+                DateTime today = DateTime.Today;
+                int age = today.Year - birthDate.Year;
+
+                if (birthDate > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
             }
         }
         public string fullName

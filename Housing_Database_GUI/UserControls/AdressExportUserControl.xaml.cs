@@ -6,7 +6,7 @@ namespace Housing_Database_GUI
     {
         public AdressExportPage(HousingDatabase database) : base(database)
         {
-            AddToExport_Button.Visibility = System.Windows.Visibility.Hidden;
+            AddToExport_Button.Content = "Clear export";
         }
 
         override public void AddressListReset()
@@ -16,10 +16,17 @@ namespace Housing_Database_GUI
                 AddressItem addressItem = new AddressItem(personAddress.Value, personAddress.Key.address);
                 Address_ListBox.Items.Add(addressItem);
             }
-            DiplayPeopleCount();
+            DisplayPeopleCount();
         }
 
-        public override void DiplayPeopleCount()
+        protected override void AddToExportButton()
+        {
+            database.ClearExport();
+            Address_ListBox.Items.Clear();
+            DisplayPeopleCount();
+        }
+
+        public override void DisplayPeopleCount()
         {
             Count_Label.Content = Address_ListBox.Items.Count + "/" + database.exportHousings.Count;
         }

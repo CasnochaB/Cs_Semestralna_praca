@@ -69,6 +69,10 @@ namespace Housing_Database_GUI.Managers
         public void EditHousing()
         {
             var housing = housingPage.GetSelectedHousing();
+            if (housing == null)
+            {
+                return;
+            }
             AddHousingWindow addHousingWindow = new AddHousingWindow(housing.houseNumber, database);
             var result = addHousingWindow.ShowDialog();
             if (result == true)

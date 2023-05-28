@@ -1,4 +1,5 @@
 ﻿using Database;
+using Housing_Database_GUI.PopUpWindows;
 using Microsoft.Win32;
 using System.IO;
 using System.Linq;
@@ -147,6 +148,12 @@ namespace Housing_Database_GUI
         private void ExitWindow(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            StatisticsWindow statisticsWindow = new StatisticsWindow(housingDatabase);
+            statisticsWindow.ShowDialog();
         }
     }
 }

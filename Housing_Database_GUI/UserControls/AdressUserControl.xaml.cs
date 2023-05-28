@@ -61,7 +61,7 @@ namespace Housing_Database_GUI
             }
             Address_ListBox.Items.Filter = null;
             Address_ListBox.Items.Refresh();
-            DiplayPeopleCount();
+            DisplayPeopleCount();
         }
 
         protected bool AddressFilterPredicate(object item)
@@ -86,15 +86,20 @@ namespace Housing_Database_GUI
                     Address_ListBox.Items.Filter = item => { return filterManager.PersonIDFilterPredicate(((AddressItem)item).Person, text); }; break;
             }
             Address_ListBox.Items.Refresh();
-            DiplayPeopleCount();
+            DisplayPeopleCount();
         }
 
-        public virtual void DiplayPeopleCount()
+        public virtual void DisplayPeopleCount()
         {
             Count_Label.Content = Address_ListBox.Items.Count + "/" + database.GetNumberOfInstances();
         }
 
         protected void AddToExport_Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddToExportButton();
+        }
+
+        protected virtual void AddToExportButton()
         {
             var addressItems = GetSelectedItems();
             if (addressItems == null) { return; }

@@ -5,7 +5,6 @@
     public class Flat : Housing, IEnumerable<HousingUnit>
     {
         private Dictionary<int, HousingUnit> housingUnits;
-        private int currentHousingUnitID = 1;
 
         public override int numberOfInhabitants => housingUnits.SelectMany(unit => unit.Value.GetInhabitants()).Distinct().Count();
 
@@ -58,15 +57,25 @@
             housingUnit.SetSuperiorHousing(this);
             while (housingUnits.ContainsKey(housingUnit.unitOrder))
             {
-                housingUnit.unitOrder = currentHousingUnitID++;
+                housingUnit.unitOrder = GetNewUnitID();
             }
             housingUnits.Add(housingUnit.unitOrder, housingUnit);
             return true;
         }
 
+        private int GetNewUnitID()
+        {
+            int i = 1;
+            while (housingUnits.ContainsKey(i))
+            {
+                i++;
+            }
+            return i;
+        }
+
         public bool Add()
         {
-            return Add(new HousingUnit(currentHousingUnitID, this));
+            return Add(new HousingUnit(GetNewUnitID(), this));
         }
 
         public override HousingUnit? GetHousingUnit(int? housingID)
