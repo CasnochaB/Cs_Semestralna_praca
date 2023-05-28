@@ -231,12 +231,12 @@ namespace Database
             return housings.Values.Where(housing => predicate(housing));
         }
 
-        public IEnumerable<HousingUnit> Where(Func<HousingUnit, bool> predicate)
+        public IEnumerable<HousingUnit> Where(Predicate<HousingUnit> predicate)
         {
             return housings.Values.SelectMany(n => n.Where(predicate));
         }
 
-        public IEnumerable<Person> Where(Func<Person, bool> predicate)
+        public IEnumerable<Person> Where(Predicate<Person> predicate)
         {
             return housings.Values.SelectMany(n => n.Where(predicate));
         }

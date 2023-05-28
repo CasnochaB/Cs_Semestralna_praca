@@ -32,11 +32,12 @@ namespace Housing_Database_GUI.PopUpWindows
         {
             int peopleCount = database.GetNumberOfInhabitants();
             int housingCount = database.Count();
-            int unitCount = database.GetHousings().Select(n => n.numberOfHousingUnits).Sum();
+            int unitCount = database.Select(n => n.numberOfHousingUnits).Sum();
             int accommodationCount = database.GetNumberOfInstances();
             double averageHouseInhabitants = database.Where(n => n.housingType == "House").Select(m => m.numberOfInhabitants).DefaultIfEmpty(0).Average();
             double averageFlatInhabitants = database.Where(n => n.housingType == "Flat").Select(m => m.numberOfInhabitants).DefaultIfEmpty(0).Average();
-            double averageUnitInhabitants = database.GetHousings().SelectMany(n => n.GetHousingUnits()).Select(m => m.numberOfInhabitants).DefaultIfEmpty(0).Average();
+            //double averageUnitInhabitants = database.GetHousings().SelectMany(n => n.GetHousingUnits()).Select(m => m.numberOfInhabitants).DefaultIfEmpty(0).Average();
+            double averageUnitInhabitants = database.Where((HousingUnit housingUnit) => true).Select(housingUnit => housingUnit.numberOfInhabitants).Average();
             double ageAverage = database.GetHousings().SelectMany(n => n.GetInhabitants()).Select(m => m.age).DefaultIfEmpty(0).Average();
             int peopleWithoutAccommodationCount = PersonRegister.count - database.GetNumberOfInhabitants();
 

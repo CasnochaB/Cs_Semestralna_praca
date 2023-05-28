@@ -92,11 +92,6 @@
             return housingUnits.Values.SelectMany(n => n.Where(predicate));
         }
 
-        public override IEnumerable<Person> Where(Func<Person, bool> predicate)
-        {
-            return housingUnits.Values.SelectMany(n => n.Where(predicate));
-        }
-
         //public override IEnumerable<HousingUnit> Where(Func<HousingUnit, bool> predicate)
         //{
         //    return housingUnits.Values.Where(predicate);

@@ -49,7 +49,6 @@ namespace Database
         }
 
         public abstract IEnumerable<Person> Where(Predicate<Person> predicate);
-        public abstract IEnumerable<Person> Where(Func<Person, bool> predicate);
 
         public abstract IEnumerable<HousingUnit> Where(Predicate<HousingUnit> predicate);
         public abstract IEnumerator<HousingUnit> GetEnumerator();
