@@ -27,7 +27,7 @@ namespace Database
         }
         public void SetHouseNumber(int houseNumber) { this.houseNumber = houseNumber; }
 
-        public abstract HousingUnit? GetHousingUnit(int? housingID = null);
+        public abstract HousingUnit GetHousingUnit(int housingID = 0);
         public bool Add(IEnumerable<Person> people, int housingID = 1)
         {
             foreach (var item in people)

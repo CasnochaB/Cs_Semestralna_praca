@@ -108,8 +108,8 @@ namespace Database
                         string lastName = strings[1];
                         string id = strings[2];
                         string adress = strings[3];
-                        string[] adressParts = adress.Split("/");
-                        string houseNumberString = adressParts[0];
+                        string[] addressParts = adress.Split("/");
+                        string houseNumberString = addressParts[0];
                         int houseNumberInteger = Int32.Parse(houseNumberString);
                         Person person;
                         try
@@ -121,18 +121,28 @@ namespace Database
                             collisions++;
                             person = PersonRegister.Get(id);
                         }
-                        if (adressParts.Length == 2)
+                        if (addressParts.Length == 2)
                         {
-                            string housingNumber = adressParts[1];
+                            string housingNumber = addressParts[0];
+                            string housingUnitOrder = addressParts[1];
                             int housingNumberInteger = Int32.Parse(housingNumber);
-                            Flat flat = new Flat(houseNumberInteger);
+                            int unitOrderInteger = Int32.Parse(housingUnitOrder);
+                            Flat flat;
                             if (!housings.ContainsKey(houseNumberInteger))
                             {
+                                flat = new Flat(housingNumberInteger);
                                 housings.Add(flat.houseNumber, flat);
                             }
-                            HousingUnit housingUnit = new HousingUnit(housingNumberInteger);
                             flat = (Flat)housings[houseNumberInteger];
-                            flat.Add(housingUnit);
+                            HousingUnit housingUnit;
+                            if (!flat.Contains(unitOrderInteger))
+                            {
+                               housingUnit = new HousingUnit(housingNumberInteger);
+                                flat.Add(housingUnit);
+                            } else
+                            {
+                                housingUnit = flat.GetHousingUnit(unitOrderInteger);
+                            }
                             housingUnit.Add(person);
                         }
                         else

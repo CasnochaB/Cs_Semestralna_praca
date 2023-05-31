@@ -42,7 +42,7 @@
             housingUnit.Add(person);
         }
 
-        public override HousingUnit? GetHousingUnit(int? housingID = null)
+        public override HousingUnit GetHousingUnit(int housingID = 0)
         {
             return housingUnit;
         }

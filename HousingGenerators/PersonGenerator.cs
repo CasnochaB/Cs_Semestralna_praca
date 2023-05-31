@@ -10,7 +10,7 @@ namespace HousingGenerators
         private static readonly string[] maleLastNames = { "Novák", "Horváth", "Kováč", "Varga", "Tóth", "Nagy", "Szabó", "Farkaš", "Baláž", "Molnár" };
         private static readonly string[] femaleLastNames = { "Nováková", "Horváthová", "Kováčová", "Vargová", "Tóthová", "Nagyová", "Szabóová", "Farkašová", "Balážová", "Molnárová" };
 
-        private static readonly Random random = new Random(2);
+        private static readonly Random random = new Random();
         private static int uniqueID = 0;
         private static int lowerCountSpan = 4;
         private static int upperCountSpan = 8;
@@ -97,10 +97,7 @@ namespace HousingGenerators
         public static IEnumerable<Person> GeneratePeople()
         {
             int count = random.Next(lowerCountSpan, upperCountSpan + 1);
-            for (int i = 0; i < count; i++)
-            {
-                yield return GeneratePerson();
-            }
+            return GeneratePeople(count);
         }
 
         public static void SetCountSpan(int lower, int upper)

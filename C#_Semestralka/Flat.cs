@@ -78,13 +78,9 @@
             return Add(new HousingUnit(GetNewUnitID(), this));
         }
 
-        public override HousingUnit? GetHousingUnit(int? housingID)
+        public override HousingUnit GetHousingUnit(int housingID)
         {
-            if (housingID != null)
-            {
-                return housingUnits.Where(n => n.Key == housingID).First().Value;
-            }
-            return null;
+            return housingUnits[housingID];        
         }
 
         public override IEnumerable<Person> Where(Predicate<Person> predicate)
@@ -112,9 +108,9 @@
             housingUnits.Remove(housingUnit.unitOrder);
         }
 
-        public bool Contains(int housingID)
+        public bool Contains(int housingUnitOrder)
         {
-            return housingUnits.ContainsKey(housingID);
+            return housingUnits.ContainsKey(housingUnitOrder);
         }
     }
 }

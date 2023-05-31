@@ -16,20 +16,16 @@ internal class Program
 
         HousingDatabase database = new HousingDatabase();
 
-        Person bezdak = new Person("Asterix", "Obelix", "000101/1111");
+        Person person = new Person("Asterix", "Obelix", "000101/1111");
 
-        Flat bigFatFlat = new Flat(20);
         for (int i = 0; i < 100; i++)
         {
-            //    var person = PersonGenerator.GeneratePerson();
-            //    Console.WriteLine(person.fullName + " " + person.personalData.identificationNumber);
+            PersonGenerator.SetCountSpan(2, 8);
             var house = HousingGenerator.GenerateHouse(true);
             Console.WriteLine(house.houseNumber);
-            var flat = HousingGenerator.GenerateFlat(5, true, true);
+            PersonGenerator.SetCountSpan(1, 5);
+            var flat = HousingGenerator.GenerateFlat(14, true, true);
             Console.WriteLine(flat.houseNumber);
-            var housingUnit = HousingUnitGenerator.GenerateHousingUnit();
-            bigFatFlat.Add(housingUnit);
-            Console.WriteLine(housingUnit.unitIdentifier);
             if (!database.Add(flat))
             {
                 flat.houseNumber = HousingGenerator.GetUniqueHousingId(database);
@@ -40,12 +36,12 @@ internal class Program
                 house.houseNumber = HousingGenerator.GetUniqueHousingId(database);
                 database.Add(house);
             }
-            house.Add(bezdak);
+            house.Add(person);
         }
         //database.PrintContent();
         Console.WriteLine(database.GetNumberOfInhabitants());
         Console.WriteLine(PersonRegister.GetNumberOfPeople());
-        FileInfo fileInfo = new FileInfo("C:\\Users\\brano\\OneDrive\\Dokumenty\\!CSharp\\Semestralna_praca\\C#_Semestralka\\sample.csv");
+        FileInfo fileInfo = new FileInfo("C:\\Users\\brano\\OneDrive\\Dokumenty\\!CSharp\\Semestralna_praca\\C#_Semestralka\\sample4.csv");
         database.Save(fileInfo);
         database.Clear();
         database.Load(fileInfo);

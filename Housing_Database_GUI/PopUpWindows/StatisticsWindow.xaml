@@ -7,10 +7,6 @@
         mc:Ignorable="d"
         Title="StatisticsWindow" Height="650" Width="500">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -21,15 +17,16 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Name="PeopleCount_Label" Content="Počet obyvateľov: "></Label>
-        <Label Name="HousingCount_Label" Grid.Row="1" Content="Počet domov a bytov: "></Label>
-        <Label Name="HousingUnitCount_Label" Grid.Row="2" Content="Počet jednotiek: "></Label>
-        <Label Name="AccommodationCount_Label" Grid.Row="3" Content="Počet ubytovaní: "></Label>
-        <Label Name="HouseAverage_Label" Grid.Row="4" Content="Priemerný počet obyvateľov na dom: "></Label>
-        <Label Name="FlatAverage_Label" Grid.Row="5" Content="Priemerný počet obyvateľov na byt: "></Label>
-        <Label Name="UnitAverage_Label" Grid.Row="6" Content="Priemerný počet obyvateľov na jednotku: "></Label>
-        <Label Name="AgeAverage_Label" Grid.Row="7" Content="Priemerný vek obyvateľov: "></Label>
-        <Label Name="PeopleWithoutAccommodation_Label" Grid.Row="8" Content="Počet obyvateľov bez ubytovania: "></Label>
+        <Label Name="PeopleCount_Label" Grid.Row="1" Content="Počet obyvateľov: "></Label>
+        <Label Name="HousingCount_Label" Grid.Row="2" Content="Počet domov a bytov: "></Label>
+        <Label Name="HousingUnitCount_Label" Grid.Row="3" Content="Počet jednotiek: "></Label>
+        <Label Name="AccommodationCount_Label" Grid.Row="4" Content="Počet ubytovaní: "></Label>
+        <Label Name="HouseAverage_Label" Grid.Row="5" Content="Priemerný počet obyvateľov na dom: "></Label>
+        <Label Name="FlatAverage_Label" Grid.Row="6" Content="Priemerný počet obyvateľov na byt: "></Label>
+        <Label Name="UnitAverage_Label" Grid.Row="7" Content="Priemerný počet obyvateľov na jednotku: "></Label>
+        <Label Name="AgeAverage_Label" Grid.Row="8" Content="Priemerný vek obyvateľov: "></Label>
+        <Label Name="PeopleWithoutAccommodation_Label" Grid.Row="9" Content="Počet obyvateľov bez ubytovania: "></Label>
     </Grid>
 </Window>

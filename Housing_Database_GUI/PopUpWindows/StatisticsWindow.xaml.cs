@@ -9,6 +9,7 @@ namespace Housing_Database_GUI.PopUpWindows
     /// </summary>
     public partial class StatisticsWindow : Window
     {
+        private const string FloatFormat = "0.000";
         private readonly HousingDatabase database;
         public StatisticsWindow(HousingDatabase database)
         {
@@ -34,9 +35,10 @@ namespace Housing_Database_GUI.PopUpWindows
             HousingCount_Label.Content += housingCount.ToString();
             HousingUnitCount_Label.Content += unitCount.ToString();
             AccommodationCount_Label.Content += accommodationCount.ToString();
-            HouseAverage_Label.Content += averageHouseInhabitants.ToString();
-            FlatAverage_Label.Content += averageFlatInhabitants.ToString();
-            UnitAverage_Label.Content += averageUnitInhabitants.ToString();
+            HouseAverage_Label.Content += averageHouseInhabitants.ToString(FloatFormat);
+            FlatAverage_Label.Content += averageFlatInhabitants.ToString(FloatFormat);
+            UnitAverage_Label.Content += averageUnitInhabitants.ToString(FloatFormat);
+            AgeAverage_Label.Content += ageAverage.ToString(FloatFormat);
             AgeAverage_Label.Content += ageAverage.ToString();
             PeopleWithoutAccommodation_Label.Content += peopleWithoutAccommodationCount.ToString();
 
