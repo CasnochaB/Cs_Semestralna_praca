@@ -4,7 +4,7 @@
 
     public class House : Housing
     {
-        HousingUnit housingUnit;
+        readonly HousingUnit housingUnit;
 
         public House(int houseNumber) : base(houseNumber)
         {

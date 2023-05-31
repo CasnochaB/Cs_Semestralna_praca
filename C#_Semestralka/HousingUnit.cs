@@ -4,7 +4,7 @@ namespace Database
 {
     public class HousingUnit : IEnumerable<Person>
     {
-        private Dictionary<string, Person> inhabitants;
+        private readonly Dictionary<string, Person> inhabitants;
         public int numberOfInhabitants
         {
             get

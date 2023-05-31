@@ -6,8 +6,8 @@ namespace Housing_Database_GUI.Managers
 {
     internal class HousingPageHousingManager
     {
-        private HousingDatabase database;
-        private HousingPage housingPage;
+        private readonly HousingDatabase database;
+        private readonly HousingPage housingPage;
         public HousingPageHousingManager(HousingDatabase housingDatabase, HousingPage housingPage)
         {
             database = housingDatabase;
@@ -31,8 +31,7 @@ namespace Housing_Database_GUI.Managers
 
         public void AddHousing()
         {
-            AddHousingWindow addHousingWindow = new AddHousingWindow();
-            addHousingWindow.housingDatabase = database;
+            AddHousingWindow addHousingWindow = new AddHousingWindow(database);
             var result = addHousingWindow.ShowDialog();
             if (result == true)
             {

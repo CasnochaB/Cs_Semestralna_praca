@@ -5,15 +5,8 @@ namespace Database
 {
     public class HousingDatabase : IEnumerable<Housing>
     {
-        private static int houseNumber = 0;
         public Dictionary<(string personID, string address), Person> exportHousings = new Dictionary<(string, string), Person>();
-
-        public static int GetHouseNumber()
-        {
-            return houseNumber++;
-        }
-        private Dictionary<int, Housing> housings;
-
+        private readonly Dictionary<int, Housing> housings;
 
         public HousingDatabase()
         {

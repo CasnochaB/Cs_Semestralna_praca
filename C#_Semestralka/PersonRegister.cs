@@ -2,7 +2,7 @@
 {
     public static class PersonRegister
     {
-        private static Dictionary<string, Person> people = new Dictionary<string, Person>();
+        private static readonly Dictionary<string, Person> people = new Dictionary<string, Person>();
         public static int count
         {
             get

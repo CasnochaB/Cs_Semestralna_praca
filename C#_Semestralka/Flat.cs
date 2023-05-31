@@ -4,7 +4,7 @@
 
     public class Flat : Housing, IEnumerable<HousingUnit>
     {
-        private Dictionary<int, HousingUnit> housingUnits;
+        private readonly Dictionary<int, HousingUnit> housingUnits;
 
         public override int numberOfInhabitants => housingUnits.SelectMany(unit => unit.Value.GetInhabitants()).Distinct().Count();
 

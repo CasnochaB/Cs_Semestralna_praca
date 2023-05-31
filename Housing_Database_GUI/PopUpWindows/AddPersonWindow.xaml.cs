@@ -60,7 +60,9 @@ namespace Housing_Database_GUI.AddWindows
                 {
                     Person person = new Person(firstName, lastName, identificationNumber);
                 }
-                catch { }
+                catch {
+                    return false;
+                }
                 return true;
             }
             CorrectionLabel.Content = "Zadajte meno a priezvisko pre osobu";
@@ -90,6 +92,7 @@ namespace Housing_Database_GUI.AddWindows
             if (!Person.CheckIDValidity(identificationNumber))
             {
                 CorrectionLabel.Content = "Rodné číslo nemá správny formát";
+                NewPersonOK_Button.IsEnabled = false;
             }
             else
             {

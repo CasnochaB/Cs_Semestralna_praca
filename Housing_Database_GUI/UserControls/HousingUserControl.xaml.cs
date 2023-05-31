@@ -16,9 +16,9 @@ namespace Housing_Database_GUI
         public HousingDatabase database;
         public bool ignoreHousingUnits = false;
         public Object? lastSelectedObject = null;
-        private HousingPageHousingManager housingManager;
-        private HousingPageHousingUnitsManager housingUnitsManager;
-        private HousingPagePeopleManager peopleManager;
+        private readonly HousingPageHousingManager housingManager;
+        private readonly HousingPageHousingUnitsManager housingUnitsManager;
+        private readonly HousingPagePeopleManager peopleManager;
 
         public HousingPage() : this(new HousingDatabase())
         {
@@ -65,7 +65,7 @@ namespace Housing_Database_GUI
 
         private void FilterHousingUnits_Button_Click(object sender, RoutedEventArgs e)
         {
-            housingUnitsManager.ApplyFilter();
+            housingUnitsManager.OpenFilterWindow();
         }
 
         private void AddPerson_Button_Click(object sender, RoutedEventArgs e)
@@ -85,13 +85,12 @@ namespace Housing_Database_GUI
 
         private void FilterPeople_Button_Click(object sender, RoutedEventArgs e)
         {
-            peopleManager.FilterWindow();
+            peopleManager.OpenFilterWindow();
         }
 
         public HousingUnit GetSelectedHousingUnit()
         {
-            var unit = (HousingUnit)HousingUnits_ListBox.SelectedItem;
-            return unit;
+            return (HousingUnit)HousingUnits_ListBox.SelectedItem;
         }
 
         public Person GetSelectedPerson()
@@ -199,6 +198,14 @@ namespace Housing_Database_GUI
         private void InhabitantsFilter_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             peopleManager.ApplyFilter();
+        }
+
+        private void ResetFilters_Button_Click(object sender, RoutedEventArgs e)
+        {
+            HousingIDFilter_TextBox.Text = "";
+            InhabitantsFilter_TextBox.Text = "";
+            peopleManager.ResetFilter();
+            housingUnitsManager.ResetFilter();
         }
     }
 }

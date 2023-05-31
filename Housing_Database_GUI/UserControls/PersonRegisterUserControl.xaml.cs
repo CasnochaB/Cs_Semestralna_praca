@@ -11,8 +11,8 @@ namespace Housing_Database_GUI
     /// </summary>
     public partial class PersonRegisterPage : UserControl
     {
-        private HousingDatabase database;
-        FilterManager filterManager;
+        private readonly HousingDatabase database;
+        readonly FilterManager filterManager;
         public PersonRegisterPage() : this(new HousingDatabase())
         {
         }
@@ -27,8 +27,17 @@ namespace Housing_Database_GUI
 
         private void PeopleListReset()
         {
+            PersonRegister_ListBox.Items.Clear();
             var data = PersonRegister.GetAll();
-            PersonRegister_ListBox.ItemsSource = new ObservableCollection<Person>(data);
+            foreach (var person in data)
+            {
+                PersonRegister_ListBox.Items.Add(person);
+            }
+            PeopleCountLabelReset();
+        }
+
+        private void PeopleCountLabelReset()
+        {
             Count_Label.Content = PersonRegister_ListBox.Items.Count + "/" + database.GetNumberOfInhabitants();
         }
 
@@ -40,6 +49,10 @@ namespace Housing_Database_GUI
             {
                 string identificationNumber = addPersonWindow.IdentificationNumber_TextBox.Text;
                 Person person = PersonRegister.Get(identificationNumber);
+                if (!PersonRegister_ListBox.Items.Contains(person)) {
+                    PersonRegister_ListBox.Items.Add(person);
+                }
+                PeopleCountLabelReset();
             }
         }
 
@@ -50,7 +63,7 @@ namespace Housing_Database_GUI
             {
                 PersonRegister.Remove(person);
                 PersonRegister_ListBox.Items.Remove(person);
-                PersonRegister_ListBox.Items.Refresh();
+                PeopleCountLabelReset();
             }
         }
 
@@ -79,6 +92,10 @@ namespace Housing_Database_GUI
             Count_Label.Content = PersonRegister_ListBox.Items.Count + "/" + PersonRegister.count;
         }
 
+        private void ResetFilter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Filter_TextBox.Text = "";
+        }
     }
 
 }

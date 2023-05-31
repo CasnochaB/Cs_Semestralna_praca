@@ -12,7 +12,7 @@ namespace Housing_Database_GUI
     public partial class AddressPage : UserControl
     {
         public HousingDatabase database;
-        private FilterManager filterManager;
+        private readonly FilterManager filterManager;
         public class AddressItem
         {
             public Person Person { get; set; }

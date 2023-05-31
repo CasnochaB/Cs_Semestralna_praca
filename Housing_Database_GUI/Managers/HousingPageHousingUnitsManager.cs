@@ -1,18 +1,17 @@
 ﻿using Database;
 using Housing_Database_GUI.HousingPageWindows;
 using System;
+using System.Linq;
 
 namespace Housing_Database_GUI.Managers
 {
     internal class HousingPageHousingUnitsManager
     {
-        private HousingPage housingPage;
-        Predicate<HousingUnit> numberOfInhabitantsPredicate;
+        private readonly HousingPage housingPage;
 
         public HousingPageHousingUnitsManager(HousingPage housingPage)
         {
             this.housingPage = housingPage;
-            numberOfInhabitantsPredicate = housingUnit => true;
         }
 
         public void HousingUnitsListReset()
@@ -34,7 +33,6 @@ namespace Housing_Database_GUI.Managers
                 {
                     housingPage.HousingUnits_ListBox.Items.Add(item);
                 }
-                housingPage.HousingUnits_ListBox.Items.Filter = housingUnit => numberOfInhabitantsPredicate((HousingUnit)housingUnit);
                 housingPage.PeopleListReset();
             }
         }
@@ -49,21 +47,29 @@ namespace Housing_Database_GUI.Managers
             if (housingPage.GetSelectedHousing().GetType().Name == "Flat")
             {
                 ((Flat)housing).Add();
-                housingPage.HousingUnits_ListBox.Items.Add(housing);            
+                HousingUnitsListReset();
             }
         }
 
         public void RemoveHousingUnit()
         {
-            Flat housing = (Flat)housingPage.GetSelectedHousing();
-            if (housing != null)
+            var housing = housingPage.GetSelectedHousing();
+            if (housing is null)
             {
-                var unit = housingPage.GetSelectedHousingUnit();
-                if (unit != null)
+                return;
+            }
+            if (housing.housingType == "Flat")
+            {
+                var flat = housing as Flat;
+                if (flat != null)
                 {
-                    housing.Remove(unit);
-                    housingPage.HousingUnits_ListBox.Items.Remove(unit);
-                    housingPage.PeopleListReset();
+                    var unit = housingPage.GetSelectedHousingUnit();
+                    if (unit != null)
+                    {
+                        flat.Remove(unit);
+                        housingPage.HousingUnits_ListBox.Items.Remove(unit);
+                        housingPage.PeopleListReset();
+                    }
                 }
             }
         }
@@ -91,7 +97,7 @@ namespace Housing_Database_GUI.Managers
             housingPage.DisplayPeopleCount();
         }
 
-        internal void ApplyFilter()
+        internal void OpenFilterWindow()
         {
             FilterHousingUnitsWindow window = new FilterHousingUnitsWindow();
             var result = window.ShowDialog();
@@ -101,15 +107,25 @@ namespace Housing_Database_GUI.Managers
                 int max = Int32.Parse(window.MaxNumber_TextBox.Text);
                 if (min == 0 && max == 0)
                 {
-                    numberOfInhabitantsPredicate = housingUnit => true;
+                    ResetFilter();
                 }
                 else
                 {
-                    numberOfInhabitantsPredicate = new Predicate<HousingUnit>(n => n.numberOfInhabitants >= min && n.numberOfInhabitants <= max);
-                    housingPage.HousingUnits_ListBox.Items.Filter = housingUnit => numberOfInhabitantsPredicate((HousingUnit)housingUnit);
+                    ApplyFilter(n => n.numberOfInhabitants >= min && n.numberOfInhabitants <= max);
                 }
                 housingPage.PeopleListReset();
             }
+        }
+
+        public void ApplyFilter(Predicate<HousingUnit> predicate)
+        {
+            housingPage.HousingUnits_ListBox.Items.Filter = housingUnit => predicate((HousingUnit)housingUnit);
+        }
+
+        public void ResetFilter()
+        {
+            Predicate<HousingUnit> numberOfInhabitantsPredicate = housingUnit => true;
+            ApplyFilter(numberOfInhabitantsPredicate);
         }
     }
 }

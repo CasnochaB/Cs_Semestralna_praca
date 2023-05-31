@@ -14,13 +14,19 @@ namespace Housing_Database_GUI.AddWindows
     {
 
         private readonly Regex numberOnlyRegex = new Regex("[^0-9]+");
-        public HousingDatabase housingDatabase;
-        private int houseNumber = -1;
+        private HousingDatabase housingDatabase;
+        private readonly int houseNumber = -1;
 
-        public AddHousingWindow()
+        public AddHousingWindow() : this(new HousingDatabase())
         {
-            housingDatabase = new HousingDatabase();
+        }
+
+        public AddHousingWindow(HousingDatabase database)
+        {
             InitializeComponent();
+            housingDatabase = database;
+            HouseNumber_TextBox.Text = 0.ToString();
+            DoCorrection();
         }
 
         public AddHousingWindow(int houseNumber, HousingDatabase database)
@@ -29,6 +35,7 @@ namespace Housing_Database_GUI.AddWindows
             housingDatabase = database;
             this.houseNumber = houseNumber;
             HouseNumber_TextBox.Text = houseNumber.ToString();
+            DoCorrection();
         }
 
         private void SelectHousingType_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,6 +60,11 @@ namespace Housing_Database_GUI.AddWindows
 
         private void NewHousingOK_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (housingDatabase.Contains(houseNumber))
+            {
+                CorrectionCheck_Label.Content = "Číslo domu už existuje";
+                return;
+            }
             DialogResult = true;
         }
 
@@ -68,6 +80,7 @@ namespace Housing_Database_GUI.AddWindows
                 {
                     NewHousingOK_Button.IsEnabled = false;
                 }
+                DoCorrection();
             }
         }
 
@@ -81,6 +94,11 @@ namespace Housing_Database_GUI.AddWindows
         }
 
         private void HouseNumber_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DoCorrection();
+        }
+
+        private void DoCorrection()
         {
             if (NewHousingOK_Button is not null)
             {
@@ -100,6 +118,7 @@ namespace Housing_Database_GUI.AddWindows
                     }
                     else
                     {
+                        CorrectionCheck_Label.Content = "";
                         NewHousingOK_Button.IsEnabled = true;
                     }
                 }

@@ -9,8 +9,8 @@ namespace Housing_Database_GUI.Managers
 {
     internal class HousingPagePeopleManager
     {
-        private HousingPage housingPage;
-        FilterManager filterManager;
+        private readonly HousingPage housingPage;
+        readonly FilterManager filterManager;
         Predicate<Person> agePredicate;
 
         public HousingPagePeopleManager(HousingPage housingPage)
@@ -118,7 +118,7 @@ namespace Housing_Database_GUI.Managers
             housingPage.People_ListBox.Items.Filter = item => filterManager.FullNameFilterPredicate((Person)item, housingPage.InhabitantsFilter_TextBox.Text) && agePredicate((Person)item);
         }
 
-        internal void FilterWindow()
+        internal void OpenFilterWindow()
         {
             FilterPersonWindow window = new FilterPersonWindow();
             var result = window.ShowDialog();
@@ -128,14 +128,20 @@ namespace Housing_Database_GUI.Managers
                 int max = Int32.Parse(window.MaxNumber_TextBox.Text);
                 if (min == 0 && max == 0)
                 {
-                    agePredicate = housingUnit => true;
+                    ResetFilter();
                 }
                 else
                 {
                     agePredicate = new Predicate<Person>(n => n.age >= min && n.age <= max);
+                    ApplyFilter();
                 }
-                ApplyFilter();
             }
+        }
+
+        public void ResetFilter()
+        {
+            agePredicate = housingUnit => true;
+            ApplyFilter();
         }
     }
 }

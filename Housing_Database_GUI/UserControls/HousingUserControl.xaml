@@ -121,7 +121,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
-                <Button Name="btnName" Height="40" Margin="0,10,0,0">
+                <Button Name="ResetFilters_Button" Click="ResetFilters_Button_Click" Height="40" Margin="0,10,0,0">
                     <TextBlock Text="Reset filters" TextWrapping="Wrap" TextAlignment="Center"/>
                 </Button>
                     <Button Name="AddToExport_Button" Click="AddToExport_Button_Click" Height="40" Margin="0,10,0,0">

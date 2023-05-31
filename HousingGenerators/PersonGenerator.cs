@@ -10,7 +10,7 @@ namespace HousingGenerators
         private static readonly string[] maleLastNames = { "Novák", "Horváth", "Kováč", "Varga", "Tóth", "Nagy", "Szabó", "Farkaš", "Baláž", "Molnár" };
         private static readonly string[] femaleLastNames = { "Nováková", "Horváthová", "Kováčová", "Vargová", "Tóthová", "Nagyová", "Szabóová", "Farkašová", "Balážová", "Molnárová" };
 
-        private static Random random = new Random(2);
+        private static readonly Random random = new Random(2);
         private static int uniqueID = 0;
         private static int lowerCountSpan = 4;
         private static int upperCountSpan = 8;

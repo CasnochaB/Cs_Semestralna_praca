@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Housing_Database_GUI.AddWindows"
         mc:Ignorable="d"
-        Title="AddHousingWindow" Height="200" Width="300">
+        Title="AddHousingWindow" Height="250" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>

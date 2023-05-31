@@ -15,7 +15,7 @@ namespace Housing_Database_GUI
     public partial class MainWindow : Window
     {
 
-        private HousingDatabase housingDatabase;
+        private readonly HousingDatabase housingDatabase;
 
         public MainWindow()
         {
